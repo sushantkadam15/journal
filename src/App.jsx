@@ -1,10 +1,10 @@
-
+import UserAuthenticationForm from "./components/UserAuthenticationForm";
 
 function App() {
   return (
-    <>
-      <h1 className=" flex flex-col text-5xl">Journal Begins</h1>
-    </>
+    <section className=" font-Numans text-base">
+      <UserAuthenticationForm />
+    </section>
   );
 }
 
