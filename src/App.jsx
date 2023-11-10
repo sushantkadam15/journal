@@ -1,10 +1,13 @@
 import UserAuthenticationForm from "./components/UserAuthenticationForm";
+import {ConfigProvider } from "antd";
 
 function App() {
   return (
-    <section className=" font-Numans text-base">
-      <UserAuthenticationForm />
-    </section>
+    <ConfigProvider>
+      <section>
+        <UserAuthenticationForm />
+      </section>
+    </ConfigProvider>
   );
 }
 
