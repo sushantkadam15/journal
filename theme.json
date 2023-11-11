@@ -5,7 +5,7 @@
     "colorSuccess": "#5dfdcb",
     "colorWarning": "#ffd791",
     "colorTextBase": "#303030",
-    "fontSize": 16,
+    "fontSize": 14,
     "borderRadius": 1,
     "wireframe": false,
     "fontFamily": "'Numans', sans-serif;"
@@ -17,7 +17,11 @@
       "colorSuccess": "rgb(81, 228, 182)"
     },
     "Button": {
-      "defaultBg": "rgb(255, 255, 255)"
+      "defaultBg": "rgb(255, 255, 255)",
+      "fontFamily": "'JetBrains Mono', 'monospace'"
+    },
+    "Input": {
+      "fontFamily": "'JetBrains Mono', 'monospace'"
     }
   }
 }
