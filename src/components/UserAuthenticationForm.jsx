@@ -20,10 +20,10 @@ const UserAuthenticationForm = () => {
             <Input size="large" placeholder="Email" />
             <label className=" mb-1 mt-4 block">Passowrd</label>
             <Input size="large" placeholder="Password" />
-            <Button className=" mt-8">Continue</Button>
+            <Button type="primary" className=" mt-8">Continue</Button>
           </div>
         </div>
-        <Row className="ml-10 mt-10 md:ml-24 bg-[#F9B3B30D]">
+        <Row className="ml-10 mt-10 bg-[#F9B3B30D] md:ml-24">
           <Col>
             <Title level={4} className="">
               Login
@@ -35,11 +35,14 @@ const UserAuthenticationForm = () => {
       <Col xs={0} lg={10} className=" relative">
         <video
           src={backgroundVideo}
-          autoplay="{true}"
+          autoPlay="{true}"
           loop
           muted
           className=" absolute h-full w-full object-cover"
         ></video>
+        <p className=" absolute right-[30%] mt-[30%] text-lg tracking-wider text-black">
+          A place to zen your thoughts.
+        </p>
       </Col>
     </Row>
   );
