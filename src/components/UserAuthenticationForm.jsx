@@ -18,17 +18,17 @@ const UserAuthenticationForm = () => {
             <label htmlFor="name" className="mb-1 block">
               Name
             </label>
-            <Input id="name" size="middle" placeholder="Name" />
+            <Input id="name" className=" placeholder:font-JetBrains" size="middle" placeholder="Name" />
 
             <label htmlFor="email" className="mb-1 mt-4 block">
               Email
             </label>
-            <Input id="email" size="middle" placeholder="Email" />
+            <Input id="email" className=" placeholder:font-JetBrains" size="middle" placeholder="Email" />
 
             <label htmlFor="password" className="mb-1 mt-4 block">
               Password
             </label>
-            <Input id="password" size="middle" placeholder="Password" />
+            <Input id="password" className=" placeholder:font-JetBrains" size="middle" placeholder="Password" />
 
             <Button htmlType="submit" type="primary" className="mt-8">
               Sign Up
