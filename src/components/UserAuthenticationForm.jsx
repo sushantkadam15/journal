@@ -54,7 +54,7 @@ const UserAuthenticationForm = () => {
           muted
           className=" absolute h-full w-full object-cover"
         ></video>
-        <p className=" absolute mt-[30%] w-full text-center tracking-widest  text-black">
+        <p className=" absolute mt-[30%] w-full text-center tracking-wides font-JetBrains text-black">
           A place to zen your thoughts.
         </p>
       </Col>
