@@ -41,7 +41,7 @@ const SignUp = () => {
       <Button htmlType="submit" type="primary" className="mt-8">
         Sign Up
       </Button>
-      <Divider style={{ fontSize: 12, paddingTop: 20, paddingBottom: 20 }}>
+      <Divider style={{ fontSize: 10, paddingTop: 20, paddingBottom: 20 }}>
         Or continue with
       </Divider>
       <div className=" flex  gap-10">
@@ -87,7 +87,7 @@ const SignIn = () => {
       >
         <span className=" font-JetBrains"> 0r continue with </span>
       </Divider>
-      <div className=" flex  gap-10">
+      <div className=" flex gap-10">
         <img src={googleIcon} alt="google logo" className="h-6 w-auto" />
         <img src={appleIcon} alt="apple logo" className="h-6 w-auto" />
       </div>
@@ -96,23 +96,18 @@ const SignIn = () => {
 };
 
 const UserAuthenticationForm = () => {
-  const onChange = (key) => {
-    console.log(key);
-  };
-
   return (
     <Row className="h-screen">
-      <Col xs={24} lg={14}>
-        <Row className=" flex h-4/6 flex-col justify-center gap-20">
-          <div className=" mx-auto flex w-96 items-center justify-start gap-5">
-            <img src={logo} alt="Logo" />{" "}
-            <h1 className=" text-4xl">Journiyfy</h1>
+      <Col xs={24} md={14}>
+        <Row className=" mx-5 flex h-4/5 flex-col justify-center gap-20 md:mx-auto">
+          <div className=" mx-auto mt-12 flex items-center justify-start gap-5 md:mt-0 md:w-96">
+            <img src={logo} alt="Logo" className=" h-12 md:h-20" />{" "}
+            <h1 className="text-2xl md:text-4xl">Journiyfy</h1>
           </div>
 
-          <div className="mx-auto h-96 w-96">
+          <div className="mx-auto md:h-96 md:w-96">
             <Tabs
               className=" font-JetBrains"
-              onChange={onChange}
               type="card"
               items={new Array(2).fill(null).map((_, i) => {
                 const id = String(i + 1);
@@ -125,18 +120,15 @@ const UserAuthenticationForm = () => {
             />
           </div>
         </Row>
-        <Row className=" mt-10 h-[29%] bg-[#F9B3B30D]">
-          {/* <div className="ml-10 mt-10 w-96 md:mx-auto">
-            <h2 className=" text-xl">Login</h2>
-            <p className=" mt-4 text-xs">Already have an account?</p>
-            <div className=" mt-5 flex gap-10">
-              <img src={googleIcon} alt="google logo" className="h-6 w-auto" />
-              <img src={appleIcon} alt="apple logo" className="h-6 w-auto" />
-            </div>
-          </div> */}
+        <Row className=" mt-10  h-[15%]  md:h-[16%] bg-[#F9B3B30D]">
+          <p className=" m-5 mx-auto mt-auto text-xs font-light text-[#7c7065cf] ">
+            {" "}
+            Created with 🧡 by Candice & Sushant{" "}
+          </p>
+          {/* New content pending  */}
         </Row>
       </Col>
-      <Col xs={0} lg={10} className=" relative">
+      <Col xs={0} md={10} className=" relative">
         <video
           src={backgroundVideo}
           autoPlay="{true}"
