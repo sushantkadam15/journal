@@ -7,6 +7,8 @@ import { useState } from "react";
 
 const UserAuthenticationForm = () => {
   const [isSignInDisplayed, setIsSignInDisplayed] = useState(true);
+
+
   return (
     <Row className="h-screen">
       <Col xs={24} md={14}>
@@ -34,12 +36,13 @@ const UserAuthenticationForm = () => {
                   <label htmlFor="password" className="mb-1 mt-4 block">
                     Password
                   </label>
-                  <Input
+                  <Input.Password
                     id="password"
                     className=" placeholder:font-JetBrains"
                     size="middle"
                     placeholder="Password"
                   />
+
                   <div className=" mt-8  flex items-center gap-5">
                     <Button htmlType="submit" type="primary" className="">
                       Sign In
@@ -102,7 +105,7 @@ const UserAuthenticationForm = () => {
                   <label htmlFor="password" className="mb-1 mt-4 block">
                     Password
                   </label>
-                  <Input
+                  <Input.Password
                     id="password"
                     className=" placeholder:font-JetBrains"
                     size="middle"
