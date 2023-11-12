@@ -16,11 +16,11 @@ const UserAuthenticationForm = () => {
             <h1 className="text-2xl md:text-4xl">Journiyfy</h1>
           </div>
 
-          <div className="mx-auto font-JetBrains md:h-96 md:w-96">
+          <div className="mx-auto md:h-96 md:w-96">
             {isSignInDisplayed && (
               <>
                 <h2 className=" mb-5 text-xl">Sign In</h2>
-                <form>
+                <form className="font-JetBrains">
                   <label htmlFor="email" className="mb-1 mt-4 block">
                     Email
                   </label>
@@ -56,7 +56,7 @@ const UserAuthenticationForm = () => {
                       paddingBottom: 20,
                     }}
                   >
-                    <span className=" font-JetBrains"> 0r continue with </span>
+                    <span className=" font-JetBrains">Or continue with </span>
                   </Divider>
                   <div className=" flex gap-10">
                     <img
@@ -121,7 +121,7 @@ const UserAuthenticationForm = () => {
                   <Divider
                     style={{ fontSize: 10, paddingTop: 20, paddingBottom: 20 }}
                   >
-                    Or continue with
+                    <span className=" font-JetBrains">Or continue with </span>
                   </Divider>
                   <div className=" flex  gap-10">
                     <img
