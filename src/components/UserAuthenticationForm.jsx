@@ -1,56 +1,169 @@
-import background from "../assets/background/authentication_bg.jpg";
+import backgroundVideo from "../assets/authentication/authentication_page.mp4";
 import logo from "../assets/logo.svg";
 import googleIcon from "../assets/authentication/devicon_google.png";
 import appleIcon from "../assets/authentication/bi_apple.png";
+import { Col, Row, Input, Button, Divider } from "antd";
+import { useState } from "react";
 
 const UserAuthenticationForm = () => {
+  const [isSignInDisplayed, setIsSignInDisplayed] = useState(true);
+
+
   return (
-    <>
-      <div className="mt-5 flex h-screen flex-col md:mt-0 md:flex-row">
-        <div className=" h-screen md:w-1/2">
-          <div className="flex h-4/6 flex-col items-center justify-around">
-            <div className=" flex items-center gap-5 ">
-              <img
-                src={logo}
-                alt="Logo"
-                className=" inline-block h-12 w-12 md:h-20 md:w-20"
-              />
-              <h1 className=" inline-block text-4xl font-[400] md:text-6xl ">
-                Journify
-              </h1>
-            </div>
-            <div>form</div>
+    <Row className="h-screen">
+      <Col xs={24} md={14}>
+        <Row className=" mx-5 flex h-4/5 flex-col justify-center gap-20 md:mx-auto">
+          <div className=" mx-auto mt-12 flex items-center justify-start gap-5 md:mt-0 md:w-96">
+            <img src={logo} alt="Logo" className=" h-12 md:h-20" />{" "}
+            <h1 className="text-2xl md:text-4xl">Journiyfy</h1>
           </div>
 
-          <div className=" flex h-2/6 items-center gap-8 bg-[#F9B3B30D]">
-            <div className="ml-12 md:ml-24">
-              <h2 className=" mb-2 text-xl">Log in</h2>
-              <p className=" text-xs">Already have an account?</p>
-              <div className=" mt-8 flex gap-10">
-                <img
-                  src={googleIcon}
-                  alt="Google Icon"
-                  className="h-5 md:h-6 md:w-6"
-                />
-                <img
-                  src={appleIcon}
-                  alt="Apple Icon"
-                  className="h-5 md:h-6 md:w-6"
-                />
-              </div>
-            </div>
+          <div className="mx-auto md:h-96 md:w-96">
+            {isSignInDisplayed && (
+              <>
+                <h2 className=" mb-5 text-xl">Sign In</h2>
+                <form className="font-JetBrains">
+                  <label htmlFor="email" className="mb-1 mt-4 block">
+                    Email
+                  </label>
+                  <Input
+                    id="email"
+                    className=" placeholder:font-JetBrains"
+                    size="middle"
+                    placeholder="Email"
+                  />
+
+                  <label htmlFor="password" className="mb-1 mt-4 block">
+                    Password
+                  </label>
+                  <Input.Password
+                    id="password"
+                    className=" placeholder:font-JetBrains"
+                    size="middle"
+                    placeholder="Password"
+                  />
+
+                  <div className=" mt-8  flex items-center gap-5">
+                    <Button htmlType="submit" type="primary" className="">
+                      Sign In
+                    </Button>
+                    <Button onClick={() => setIsSignInDisplayed(false)}>
+                      Create an Account
+                    </Button>
+                  </div>
+
+                  <Divider
+                    style={{
+                      fontSize: 12,
+                      paddingTop: 20,
+                      paddingBottom: 20,
+                    }}
+                  >
+                    <span className=" font-JetBrains">Or continue with </span>
+                  </Divider>
+                  <div className=" flex gap-10">
+                    <img
+                      src={googleIcon}
+                      alt="google logo"
+                      className="h-6 w-auto"
+                    />
+                    <img
+                      src={appleIcon}
+                      alt="apple logo"
+                      className="h-6 w-auto"
+                    />
+                  </div>
+                </form>
+              </>
+            )}
+
+            {!isSignInDisplayed && (
+              <>
+                <h2 className=" mb-5 text-xl">Sign Up</h2>
+
+                <form className="font-JetBrains">
+                  <label htmlFor="name" className="mb-1 block">
+                    Name
+                  </label>
+                  <Input
+                    id="name"
+                    className=" placeholder:font-JetBrains"
+                    size="middle"
+                    placeholder="Name"
+                  />
+
+                  <label htmlFor="email" className="mb-1 mt-4 block">
+                    Email
+                  </label>
+                  <Input
+                    id="email"
+                    className=" placeholder:font-JetBrains"
+                    size="middle"
+                    placeholder="Email"
+                  />
+
+                  <label htmlFor="password" className="mb-1 mt-4 block">
+                    Password
+                  </label>
+                  <Input.Password
+                    id="password"
+                    className=" placeholder:font-JetBrains"
+                    size="middle"
+                    placeholder="Password"
+                  />
+
+                  <div className=" mt-8  flex items-center gap-5">
+                    <Button htmlType="submit" type="primary" className="">
+                      Sign Up
+                    </Button>
+                    <Button onClick={() => setIsSignInDisplayed(true)}>
+                      Sign In
+                    </Button>
+                  </div>
+
+                  <Divider
+                    style={{ fontSize: 10, paddingTop: 20, paddingBottom: 20 }}
+                  >
+                    <span className=" font-JetBrains">Or continue with </span>
+                  </Divider>
+                  <div className=" flex  gap-10">
+                    <img
+                      src={googleIcon}
+                      alt="google logo"
+                      className="h-6 w-auto"
+                    />
+                    <img
+                      src={appleIcon}
+                      alt="apple logo"
+                      className="h-6 w-auto"
+                    />
+                  </div>
+                </form>
+              </>
+            )}
           </div>
-        </div>
-        <div
-          style={{ backgroundImage: `url(${background})` }}
-          className=" hidden bg-cover bg-center bg-no-repeat md:flex md:w-1/2 md:justify-center"
-        >
-          <p className=" font-JetBrains mt-60 text-xl text-[#a6a6c9]">
-            A place to zen your thoughts.
+        </Row>
+        <Row className=" mt-10  h-[15%]  bg-[#F9B3B30D] md:h-[16%]">
+          <p className=" m-5 mx-auto mt-auto text-xs font-light text-[#7c7065cf] ">
+            {" "}
+            Created with 🧡 by Candice & Sushant{" "}
           </p>
-        </div>
-      </div>
-    </>
+          {/* New content pending  */}
+        </Row>
+      </Col>
+      <Col xs={0} md={10} className=" relative">
+        <video
+          src={backgroundVideo}
+          autoPlay="{true}"
+          loop
+          muted
+          className=" absolute h-full w-full object-cover"
+        ></video>
+        <p className=" absolute mt-[30%] w-full text-center font-JetBrains tracking-wider text-[#303030]">
+          A place to zen your thoughts.
+        </p>
+      </Col>
+    </Row>
   );
 };
 
