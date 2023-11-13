@@ -11,18 +11,18 @@ const UserAuthenticationForm = () => {
   return (
     <Row className="h-screen">
       <Col xs={24} md={14}>
-        <Row className=" mx-5 flex h-4/5 flex-col justify-center gap-20 md:mx-auto">
+        <Row className=" mx-5 flex h-4/5 flex-col justify-center gap-20 md:mx-auto font-JetBrains">
           <div className=" mx-auto mt-12 flex items-center justify-start gap-5 md:mt-0 md:w-96">
             <img src={logo} alt="Logo" className=" h-12 md:h-20" />{" "}
             <h1 className="text-2xl md:text-4xl">Journiyfy</h1>
           </div>
 
           <div className="mx-auto h-[28rem]  w-72 md:h-96 md:w-96">
-            <h2 className=" mb-5 text-xl">
+            <h2 className=" mb-5 text-xl font-Numans">
               {isSignInDisplayed ? "Sign In" : "Sign Up"}
             </h2>
 
-            <form className="font-JetBrains">
+            <form>
               {!isSignInDisplayed && (
                 <>
                   <label htmlFor="name" className="mb-1 block">
