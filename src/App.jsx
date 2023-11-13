@@ -1,9 +1,10 @@
+import RichTextEditor from "./components/RichTextEditor/RichTextEditor";
 import UserAuthenticationForm from "./components/UserAuthenticationForm";
 
 function App() {
   return (
     <section>
-      <UserAuthenticationForm />
+      <RichTextEditor />
     </section>
   );
 }
