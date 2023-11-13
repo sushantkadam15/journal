@@ -8,7 +8,6 @@ import { useState } from "react";
 const UserAuthenticationForm = () => {
   const [isSignInDisplayed, setIsSignInDisplayed] = useState(true);
 
-
   return (
     <Row className="h-screen">
       <Col xs={24} md={14}>
@@ -18,70 +17,14 @@ const UserAuthenticationForm = () => {
             <h1 className="text-2xl md:text-4xl">Journiyfy</h1>
           </div>
 
-          <div className="mx-auto md:h-96 md:w-96">
-            {isSignInDisplayed && (
-              <>
-                <h2 className=" mb-5 text-xl">Sign In</h2>
-                <form className="font-JetBrains">
-                  <label htmlFor="email" className="mb-1 mt-4 block">
-                    Email
-                  </label>
-                  <Input
-                    id="email"
-                    className=" placeholder:font-JetBrains"
-                    size="middle"
-                    placeholder="Email"
-                  />
+          <div className="mx-auto h-[28rem]  w-72 md:h-96 md:w-96">
+            <h2 className=" mb-5 text-xl">
+              {isSignInDisplayed ? "Sign In" : "Sign Up"}
+            </h2>
 
-                  <label htmlFor="password" className="mb-1 mt-4 block">
-                    Password
-                  </label>
-                  <Input.Password
-                    id="password"
-                    className=" placeholder:font-JetBrains"
-                    size="middle"
-                    placeholder="Password"
-                  />
-
-                  <div className=" mt-8  flex items-center gap-5">
-                    <Button htmlType="submit" type="primary" className="">
-                      Sign In
-                    </Button>
-                    <Button onClick={() => setIsSignInDisplayed(false)}>
-                      Create an Account
-                    </Button>
-                  </div>
-
-                  <Divider
-                    style={{
-                      fontSize: 12,
-                      paddingTop: 20,
-                      paddingBottom: 20,
-                    }}
-                  >
-                    <span className=" font-JetBrains">Or continue with </span>
-                  </Divider>
-                  <div className=" flex gap-10">
-                    <img
-                      src={googleIcon}
-                      alt="google logo"
-                      className="h-6 w-auto"
-                    />
-                    <img
-                      src={appleIcon}
-                      alt="apple logo"
-                      className="h-6 w-auto"
-                    />
-                  </div>
-                </form>
-              </>
-            )}
-
-            {!isSignInDisplayed && (
-              <>
-                <h2 className=" mb-5 text-xl">Sign Up</h2>
-
-                <form className="font-JetBrains">
+            <form className="font-JetBrains">
+              {!isSignInDisplayed && (
+                <>
                   <label htmlFor="name" className="mb-1 block">
                     Name
                   </label>
@@ -91,56 +34,71 @@ const UserAuthenticationForm = () => {
                     size="middle"
                     placeholder="Name"
                   />
+                </>
+              )}
 
-                  <label htmlFor="email" className="mb-1 mt-4 block">
-                    Email
-                  </label>
-                  <Input
-                    id="email"
-                    className=" placeholder:font-JetBrains"
-                    size="middle"
-                    placeholder="Email"
-                  />
+              <label htmlFor="email" className="mb-1 mt-4 block">
+                Email
+              </label>
+              <Input
+                id="email"
+                className=" placeholder:font-JetBrains"
+                size="middle"
+                placeholder="Email"
+              />
 
-                  <label htmlFor="password" className="mb-1 mt-4 block">
-                    Password
-                  </label>
-                  <Input.Password
-                    id="password"
-                    className=" placeholder:font-JetBrains"
-                    size="middle"
-                    placeholder="Password"
-                  />
+              <label htmlFor="password" className="mb-1 mt-4 block">
+                Password
+              </label>
+              <Input.Password
+                id="password"
+                className=" placeholder:font-JetBrains"
+                size="middle"
+                placeholder="Password"
+              />
+              {isSignInDisplayed && (    <Button  size="small" type="link" style={{textAlign:"left", paddingLeft:"0px", marginTop:15, marginBottom:5}} block>
+                  Forgot password?
+                </Button>) }
 
-                  <div className=" mt-8  flex items-center gap-5">
+
+            
+
+              <div className=" mt-8  flex items-center gap-5">
+                {isSignInDisplayed ? (
+                  <>
+                    <Button htmlType="submit" type="primary" className="">
+                      Sign In
+                    </Button>
+                    <Button onClick={() => setIsSignInDisplayed(false)}>
+                      Create an Account
+                    </Button>
+                  </>
+                ) : (
+                  <>
                     <Button htmlType="submit" type="primary" className="">
                       Sign Up
                     </Button>
                     <Button onClick={() => setIsSignInDisplayed(true)}>
                       Sign In
                     </Button>
-                  </div>
+                  </>
+                )}
+              </div>
 
-                  <Divider
-                    style={{ fontSize: 10, paddingTop: 20, paddingBottom: 20 }}
-                  >
-                    <span className=" font-JetBrains">Or continue with </span>
-                  </Divider>
-                  <div className=" flex  gap-10">
-                    <img
-                      src={googleIcon}
-                      alt="google logo"
-                      className="h-6 w-auto"
-                    />
-                    <img
-                      src={appleIcon}
-                      alt="apple logo"
-                      className="h-6 w-auto"
-                    />
-                  </div>
-                </form>
-              </>
-            )}
+              <Divider
+                style={{ fontSize: 10, paddingTop: 20, paddingBottom: 20 }}
+              >
+                <span className=" font-JetBrains">Or continue with </span>
+              </Divider>
+              <div className=" flex  gap-10">
+                <img
+                  src={googleIcon}
+                  alt="google logo"
+                  className="h-6 w-auto"
+                />
+                <img src={appleIcon} alt="apple logo" className="h-6 w-auto" />
+              </div>
+            </form>
           </div>
         </Row>
         <Row className=" mt-10  h-[15%]  bg-[#F9B3B30D] md:h-[16%]">
