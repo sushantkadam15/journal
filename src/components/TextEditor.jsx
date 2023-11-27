@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
     BlockNoteView,
     lightDefaultTheme,
-    useBlockNote
+    useBlockNote,
+    getDefaultReactSlashMenuItems
 } from '@blocknote/react';
 import '@blocknote/core/style.css';
 
 function TextEditor() {
+    // Get the initial content from localStorage
     let initialContent = [];
     try {
         initialContent = JSON.parse(localStorage.getItem('content')) || [];
@@ -16,17 +18,38 @@ function TextEditor() {
 
     const [content, setContent] = useState(initialContent || []);
 
+    // Customize the theme
     const lightTheme = {
         ...lightDefaultTheme,
-        borderRadius: 4,
         fontFamily: 'JetBrains Mono, monospace',
         borderRadius: 0
     };
 
+    // Customize the slash menu items
+    const customizeMenuItems = () => {
+        const removeHintsAndShortcuts = (item) => {
+            const newItem = { ...item };
+            delete newItem.hint;
+            delete newItem.shortcut;
+            if (newItem.group === 'Basic blocks') {
+                newItem.group = 'Basic';
+            }
+            return newItem;
+        };
+
+        const defaultMenuItems = [...getDefaultReactSlashMenuItems()];
+        const customizedMenuItems = defaultMenuItems.map(
+            removeHintsAndShortcuts
+        );
+        return customizedMenuItems;
+    };
+
+    //  Initialize the editor instance
     const editor = useBlockNote({
         initialContent: content,
+        slashMenuItems: customizeMenuItems(),
         onEditorReady: () => {
-            editor.focus();
+            editor.focus('end');
         },
 
         onEditorContentChange: (editor) => {
