@@ -11,145 +11,102 @@ import raindropsIcon from '../assets/icons/mood/Raindrops.svg';
 import palmTreeIcon from '../assets/icons/mood/tree-palm.svg';
 import waterIcon from '../assets/icons/mood/water.svg';
 
-export const JournalView = () => {
+import focusModeIcon from '../assets/icons/circle-dot.svg';
+import darkModeIcon from '../assets/icons/circle-half-stroke.svg';
+import soundIcon from '../assets/icons/volume-off.svg';
+import bulbIcon from '../assets/icons/icons8-bulb-32.png';
+
+import PropTypes from 'prop-types';
+import TextEditor from './TextEditor';
+
+const moodOptions = [
+    { value: 'happy', label: 'Happy', icon: rainbowIcon },
+    { value: 'relaxed', label: 'Relaxed', icon: palmTreeIcon },
+    { value: 'excited', label: 'Excited', icon: moonIcon },
+    { value: 'neutral', label: 'Neutral', icon: cloudIcon },
+    { value: 'stressed', label: 'Stressed', icon: lightningIcon },
+    { value: 'sad', label: 'Sad', icon: raindropsIcon },
+    { value: 'angry', label: 'Angry', icon: cloudShowerIcon },
+    { value: 'anxious', label: 'Anxious', icon: waterIcon }
+];
+
+const Header = () => {
     const [isMoodDropdownOpen, setIsMoodDropdownOpen] = useState(false);
-    const handleChange = (value) => {
-        console.log(`selected ${value}`);
+    const onMoodChange = (mood) => {
+        console.log(mood);
     };
 
     return (
-        <div>
-            {/* Header  */}
-            <div>
-                <div>
-                    <div className="flex items-center gap-8">
-                        <img src={logo} alt="logo" />
-                        <div
-                            className="shadow-box flex items-center gap-1 border border-solid pl-4 font-JetBrains text-sm py-2"
-                            onMouseEnter={() => setIsMoodDropdownOpen(true)}
-                            onMouseLeave={() => setIsMoodDropdownOpen(false)}
-                        >
-                            Current Mood:
-                            <Select
-                                defaultValue="happy"
-                                size="small"
-                                bordered={false}
-                                className='font-JetBrains text-sm w-32'
-                                onChange={handleChange}
-                                open={isMoodDropdownOpen}
-                                onSelect={() => setIsMoodDropdownOpen(false)}
-                                options={[
-                                    {
-                                        value: 'happy',
-                                        label: (
-                                            <div className="flex items-center gap-2">
-                                                <span>Happy</span>
-                                                <img
-                                                    className="h-4"
-                                                    src={rainbowIcon}
-                                                    alt="happy"
-                                                />
-                                            </div>
-                                        )
-                                    },
-                                    {
-                                        value: 'relaxed',
-                                        label: (
-                                            <div className="flex items-center gap-2">
-                                                <span>Relaxed</span>
-                                                <img
-                                                    className="h-4"
-                                                    src={palmTreeIcon}
-                                                    alt="relaxed"
-                                                />
-                                            </div>
-                                        )
-                                    },
-                                    {
-                                        value: 'excited',
-                                        label: (
-                                            <div className="flex items-center gap-2">
-                                                <span>Excited</span>
-                                                <img
-                                                    className="h-4"
-                                                    src={moonIcon}
-                                                    alt="excited"
-                                                />
-                                            </div>
-                                        )
-                                    },
-                                    {
-                                        value: 'neutral',
-                                        label: (
-                                            <div className="flex items-center gap-2">
-                                                <span>Neutral</span>
-                                                <img
-                                                    className="h-4"
-                                                    src={cloudIcon}
-                                                    alt="neutral"
-                                                />
-                                            </div>
-                                        )
-                                    },
-                                    {
-                                        value: 'stressed',
-                                        label: (
-                                            <div className="flex items-center gap-2">
-                                                <span>Stressed</span>
-                                                <img
-                                                    className="h-4"
-                                                    src={lightningIcon}
-                                                    alt="stressed"
-                                                />
-                                            </div>
-                                        )
-                                    },
-                                    {
-                                        value: 'sad',
-                                        label: (
-                                            <div className="flex items-center gap-2">
-                                                <span>Sad</span>
-                                                <img
-                                                    className="h-4"
-                                                    src={raindropsIcon}
-                                                    alt="sad"
-                                                />
-                                            </div>
-                                        )
-                                    },
-                                    {
-                                        value: 'angry',
-                                        label: (
-                                            <div className="flex items-center gap-2">
-                                                <span>Angry</span>
-                                                <img
-                                                    className="h-4"
-                                                    src={cloudShowerIcon}
-                                                    alt="angry"
-                                                />
-                                            </div>
-                                        )
-                                    },
-                                    {
-                                        value: 'anxious',
-                                        label: (
-                                            <div className="flex items-center gap-2">
-                                                <span>Anxious</span>
-                                                <img
-                                                    className="h-4"
-                                                    src={waterIcon}
-                                                    alt="anxious"
-                                                />
-                                            </div>
-                                        )
-                                    }
-                                ]}
-                            />
-                        </div>
-                    </div>
-                    <div></div>
+        <div className="flex items-start justify-between font-JetBrains">
+            <div className="flex items-center gap-8 ">
+                <img className="h-14" src={logo} alt="logo" />
+                <div
+                    className="shadow-box flex items-center gap-1 border border-solid py-2 pl-4 font-JetBrains text-sm"
+                    onMouseEnter={() => setIsMoodDropdownOpen(true)}
+                    onMouseLeave={() => setIsMoodDropdownOpen(false)}
+                >
+                    Current Mood:
+                    <Select
+                        defaultValue="happy"
+                        size="small"
+                        bordered={false}
+                        className="w-32 font-JetBrains text-sm"
+                        onChange={onMoodChange}
+                        open={isMoodDropdownOpen}
+                        onSelect={() => setIsMoodDropdownOpen(false)}
+                        options={moodOptions.map(({ value, label, icon }) => ({
+                            value,
+                            label: (
+                                <div className="flex items-center gap-2">
+                                    <span>{label}</span>
+                                    <img
+                                        className="h-4"
+                                        src={icon}
+                                        alt={value}
+                                    />
+                                </div>
+                            )
+                        }))}
+                    />
                 </div>
+            </div>
+            <div className="flex gap-8">
+                <button className="flex flex-col items-center gap-3 bg-transparent">
+                    <img
+                        className="h-[16px]"
+                        src={bulbIcon}
+                        alt="Generate Prompt"
+                    />
+                    <span>Add Prompt</span>
+                </button>
+                <button className="flex flex-col items-center gap-3 bg-transparent">
+                    <img src={darkModeIcon} alt="dark mode" />
+                    <span>Dark Mode</span>
+                </button>
+                <button className="flex flex-col items-center gap-3 bg-transparent">
+                    <img src={focusModeIcon} alt="focus mode" />
+                    <span>Focus Mode</span>
+                </button>
+                <button className="flex flex-col items-center gap-3 bg-transparent">
+                    <img src={soundIcon} alt="sound" />
+                    <span>Sound</span>
+                </button>
             </div>
         </div>
     );
 };
+
+const JournalView = () => {
+    return (
+        <div className="mx-5 mt-5">
+            {/* Header  */}
+            <Header />
+            {/* Journal Entries */}
+            <div className="mx-auto mt-12 min-h-[85vh] w-10/12 border border-slate-200 py-4">
+                <TextEditor />
+            </div>
+        </div>
+    );
+};
+
+export default JournalView;

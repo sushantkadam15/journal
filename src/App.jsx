@@ -1,4 +1,4 @@
-import { JournalView } from './components/JournalView';
+import  JournalView  from './components/JournalView';
 import TextEditor from './components/TextEditor';
 import UserAuthenticationForm from './components/UserAuthenticationForm';
 import { useState } from 'react';
