@@ -1,23 +1,20 @@
-import React from 'react';
 import { useState } from 'react';
-import logo from '../assets/logo.svg';
+import logo from '../../assets/logo.svg';
 import { Select } from 'antd';
-import lightningIcon from '../assets/icons/mood/bolt-lightning.svg';
-import moonIcon from '../assets/icons/mood/cloud-moon.svg';
-import cloudShowerIcon from '../assets/icons/mood/cloud-showers.svg';
-import cloudIcon from '../assets/icons/mood/cloud.svg';
-import rainbowIcon from '../assets/icons/mood/rainbow.svg';
-import raindropsIcon from '../assets/icons/mood/Raindrops.svg';
-import palmTreeIcon from '../assets/icons/mood/tree-palm.svg';
-import waterIcon from '../assets/icons/mood/water.svg';
+import lightningIcon from '../../assets/icons/mood/bolt-lightning.svg';
+import moonIcon from '../../assets/icons/mood/cloud-moon.svg';
+import cloudShowerIcon from '../../assets/icons/mood/cloud-showers.svg';
+import cloudIcon from '../../assets/icons/mood/cloud.svg';
+import rainbowIcon from '../../assets/icons/mood/rainbow.svg';
+import raindropsIcon from '../../assets/icons/mood/Raindrops.svg';
+import palmTreeIcon from '../../assets/icons/mood/tree-palm.svg';
+import waterIcon from '../../assets/icons/mood/water.svg';
 
-import focusModeIcon from '../assets/icons/circle-dot.svg';
-import darkModeIcon from '../assets/icons/circle-half-stroke.svg';
-import soundIcon from '../assets/icons/volume-off.svg';
-import bulbIcon from '../assets/icons/icons8-bulb-32.png';
+import focusModeIcon from '../../assets/icons/circle-dot.svg';
+import darkModeIcon from '../../assets/icons/circle-half-stroke.svg';
+import soundIcon from '../../assets/icons/volume-off.svg';
+import bulbIcon from '../../assets/icons/icons8-bulb-32.png';
 
-import PropTypes from 'prop-types';
-import TextEditor from './TextEditor';
 
 const moodOptions = [
     { value: 'happy', label: 'Happy', icon: rainbowIcon },
@@ -30,7 +27,9 @@ const moodOptions = [
     { value: 'anxious', label: 'Anxious', icon: waterIcon }
 ];
 
-const Header = () => {
+
+
+const TextEditorHeader = () => {
     const [isMoodDropdownOpen, setIsMoodDropdownOpen] = useState(false);
     const onMoodChange = (mood) => {
         console.log(mood);
@@ -96,17 +95,4 @@ const Header = () => {
     );
 };
 
-const JournalView = () => {
-    return (
-        <div className="mx-5 mt-5">
-            {/* Header  */}
-            <Header />
-            {/* Journal Entries */}
-            <div className="mx-auto mt-12 min-h-[85vh] w-10/12 border border-slate-200 py-4">
-                <TextEditor />
-            </div>
-        </div>
-    );
-};
-
-export default JournalView;
+export default TextEditorHeader;

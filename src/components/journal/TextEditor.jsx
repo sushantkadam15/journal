@@ -6,8 +6,10 @@ import {
     getDefaultReactSlashMenuItems
 } from '@blocknote/react';
 import '@blocknote/core/style.css';
+import TextEditorMenu from './TextEditorMenu';
+import TextEditorHeader from './TextEditorHeader';
 
-function TextEditor() {
+const TextEditor = () => {
     // Get the initial content from localStorage
     let initialContent = [];
     try {
@@ -17,6 +19,12 @@ function TextEditor() {
     }
 
     const [content, setContent] = useState(initialContent || []);
+    const [currentBlock, setCurrentBlock] = useState([]);
+
+    const captureCurrentBlock = (editor) => {
+        const currentCursorPositon = editor.getTextCursorPosition().block;
+        setCurrentBlock(currentCursorPositon);
+    };
 
     // Customize the theme
     const lightTheme = {
@@ -53,14 +61,32 @@ function TextEditor() {
         },
 
         onEditorContentChange: (editor) => {
+            captureCurrentBlock(editor);
             const newContent = editor.topLevelBlocks;
             setContent(newContent);
             localStorage.setItem('content', JSON.stringify(newContent));
+        },
+
+        onTextCursorPositionChange: (editor) => {
+            captureCurrentBlock(editor);
         }
     });
 
     // Renders the editor instance using a React component.
-    return <BlockNoteView editor={editor} theme={lightTheme} />;
-}
+    return (
+        <>
+            <TextEditorHeader />
+            <div className="relative mx-auto mt-12 h-[85vh] border-slate-200 py-4 md:w-10/12 md:border">
+                <BlockNoteView editor={editor} theme={lightTheme} />
+                <div className="absolute bottom-1 mx-1">
+                    <TextEditorMenu
+                        editor={editor}
+                        currentBlock={currentBlock}
+                    />
+                </div>
+            </div>
+        </>
+    );
+};
 
 export default TextEditor;
