@@ -19,7 +19,7 @@ const TextEditor = () => {
     }
 
     const [content, setContent] = useState(initialContent || []);
-    const [currentBlock, setCurrentBlock] = useState([]);
+    const [currentBlock, setCurrentBlock] = useState({});
 
     const captureCurrentBlock = (editor) => {
         const currentCursorPositon = editor.getTextCursorPosition().block;
@@ -74,18 +74,22 @@ const TextEditor = () => {
 
     // Renders the editor instance using a React component.
     return (
-        <>
+        <div className="m-4">
             <TextEditorHeader />
-            <div className="relative mx-auto mt-12 h-[85vh] border-slate-200 py-4 md:w-10/12 md:border">
-                <BlockNoteView editor={editor} theme={lightTheme} />
-                <div className="absolute bottom-1 mx-1">
+            <div className="relative mx-auto mt-12 h-[88vh] border-slate-200 py-4 md:w-10/12 md:border">
+                <BlockNoteView
+                    editor={editor}
+                    theme={lightTheme}
+                    className=""
+                />
+                <div className="absolute bottom-0 w-full">
                     <TextEditorMenu
                         editor={editor}
                         currentBlock={currentBlock}
                     />
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
