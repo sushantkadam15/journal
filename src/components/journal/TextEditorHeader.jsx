@@ -13,7 +13,6 @@ import waterIcon from '../../assets/icons/mood/water.svg';
 import focusModeIcon from '../../assets/icons/circle-dot.svg';
 import darkModeIcon from '../../assets/icons/circle-half-stroke.svg';
 import soundIcon from '../../assets/icons/volume-off.svg';
-import bulbIcon from '../../assets/icons/icons8-bulb-32.png';
 
 
 const moodOptions = [
@@ -26,8 +25,6 @@ const moodOptions = [
     { value: 'angry', label: 'Angry', icon: cloudShowerIcon },
     { value: 'anxious', label: 'Anxious', icon: waterIcon }
 ];
-
-
 
 const TextEditorHeader = () => {
     const [isMoodDropdownOpen, setIsMoodDropdownOpen] = useState(false);
@@ -70,14 +67,6 @@ const TextEditorHeader = () => {
                 </div>
             </div>
             <div className="flex gap-8">
-                <button className="flex flex-col items-center gap-3 bg-transparent">
-                    <img
-                        className="h-[16px]"
-                        src={bulbIcon}
-                        alt="Generate Prompt"
-                    />
-                    <span>Add Prompt</span>
-                </button>
                 <button className="flex flex-col items-center gap-3 bg-transparent">
                     <img src={darkModeIcon} alt="dark mode" />
                     <span>Dark Mode</span>
