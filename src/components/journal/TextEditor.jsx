@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import {
     BlockNoteView,
     lightDefaultTheme,
+    darkDefaultTheme,
     useBlockNote,
-    getDefaultReactSlashMenuItems
+    getDefaultReactSlashMenuItems,
+    Toolbar
 } from '@blocknote/react';
 import '@blocknote/core/style.css';
 import TextEditorMenu from './TextEditorMenu';
@@ -12,6 +14,8 @@ import TextEditorHeader from './TextEditorHeader';
 const TextEditor = () => {
     // Get the initial content from localStorage
     let initialContent = [];
+    const containerRef = useRef(null);
+
     try {
         initialContent = JSON.parse(localStorage.getItem('content')) || [];
     } catch (error) {
@@ -19,16 +23,24 @@ const TextEditor = () => {
     }
 
     const [content, setContent] = useState(initialContent || []);
-    const [currentBlock, setCurrentBlock] = useState({});
+    const [selectedBlocks, setSelectedBlocks] = useState([]);
+    const [isSelectionActive, setIsSelectionActive] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
 
-    const captureCurrentBlock = (editor) => {
-        const currentCursorPositon = editor.getTextCursorPosition().block;
-        setCurrentBlock(currentCursorPositon);
+    const scrollToBottom = () => {
+        if (containerRef.current) {
+            containerRef.current.scrollTop = containerRef.current.scrollHeight;
+        }
     };
 
     // Customize the theme
     const lightTheme = {
         ...lightDefaultTheme,
+        fontFamily: 'JetBrains Mono, monospace',
+        borderRadius: 0
+    };
+    const darkTheme = {
+        ...darkDefaultTheme,
         fontFamily: 'JetBrains Mono, monospace',
         borderRadius: 0
     };
@@ -58,34 +70,74 @@ const TextEditor = () => {
         slashMenuItems: customizeMenuItems(),
         onEditorReady: () => {
             editor.focus('end');
+            scrollToBottom();
         },
 
         onEditorContentChange: (editor) => {
-            captureCurrentBlock(editor);
-            const newContent = editor.topLevelBlocks;
-            setContent(newContent);
-            localStorage.setItem('content', JSON.stringify(newContent));
+            // Capture the current block when the content changes for formatting purposes
+            captureSelectedBlocks(editor);
+
+            // Update the content in localStorage
+            setContent(editor.topLevelBlocks);
+            localStorage.setItem(
+                'content',
+                JSON.stringify(editor.topLevelBlocks)
+            );
+
+            // Scroll to the bottom of the editor to keep the cursor in view
+            scrollToBottom();
         },
 
         onTextCursorPositionChange: (editor) => {
-            captureCurrentBlock(editor);
+            captureSelectedBlocks(editor);
         }
     });
+
+    const captureSelectedBlocks = useCallback(
+        (editor) => {
+            const currentSelectedBlocks = editor.getSelection()?.blocks;
+            const currentActiveBlock = editor.getTextCursorPosition().block;
+
+            if (currentSelectedBlocks) {
+                setSelectedBlocks(currentSelectedBlocks);
+                setIsSelectionActive(true);
+            } else {
+                isSelectionActive && setIsSelectionActive(false);
+                setSelectedBlocks([currentActiveBlock]);
+            }
+        },
+        [selectedBlocks, isSelectionActive]
+    );
 
     // Renders the editor instance using a React component.
     return (
         <div className="m-4">
             <TextEditorHeader />
-            <div className="relative mx-auto mt-12 h-[88vh] border-slate-200 py-4 md:w-10/12 md:border">
-                <BlockNoteView
-                    editor={editor}
-                    theme={lightTheme}
-                    className=""
-                />
-                <div className="absolute bottom-0 w-full">
+            <div className=" mx-auto mt-12 h-[88vh] max-h-[90vh]  border-slate-200 py-4 md:w-10/12 md:border">
+                <div
+                    className={`mb-5 h-[95%] overflow-auto  ${
+                        isFocused &&
+                        '[-ms-overflow-style:"none"] [scrollbar-width:"none"] [&::-webkit-scrollbar]:hidden'
+                    }`}
+                    ref={containerRef}
+                    onFocus={() => setIsFocused(true)}
+                >
+                    <BlockNoteView
+                        editor={editor}
+                        theme={lightTheme}
+                        // onBlur={() => {
+                        //     editor.focus();
+                        // }}
+                    />
+                </div>
+
+                <div className="min-w-[81vw]">
                     <TextEditorMenu
                         editor={editor}
-                        currentBlock={currentBlock}
+                        selectedBlocks={selectedBlocks}
+                        setSelectedBlocks={setSelectedBlocks}
+                        isSelectionActive={isSelectionActive}
+                        setIsSelectionActive={setIsSelectionActive}
                     />
                 </div>
             </div>

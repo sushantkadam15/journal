@@ -5,8 +5,10 @@ import { Select, ColorPicker, Button } from 'antd';
 import { MdFormatBold } from 'react-icons/md';
 import { BsTypeUnderline, BsTypeItalic } from 'react-icons/bs';
 import { FaLightbulb } from 'react-icons/fa6';
+import CustomColorPicker from './CustomColorPicker';
 
 const headingLevels = { heading1: 1, heading2: 2, heading3: 3 };
+
 const formatOptions = [
     {
         value: 'paragraph',
@@ -34,25 +36,109 @@ const formatOptions = [
     }
 ];
 
-const TextEditorMenu = ({ editor, currentBlock }) => {
-    const handleFormatChange = useCallback(
-        (value) => {
+const textColorsPresets = [
+    {
+        label: 'Recommended',
+        colors: [
+            'grey',
+            'brown',
+            'black',
+            'orange',
+            'yellow',
+            'green',
+            'blue',
+            'purple',
+            'pink'
+        ]
+    },
+    {
+        label: 'Recent',
+        colors: []
+    }
+];
+
+const highlightColorsPresets = [
+    {
+        label: 'Recommended',
+        colors: [
+            'grey',
+            'brown',
+            'black',
+            'orange',
+            'yellow',
+            'green',
+            'blue',
+            'purple',
+            'pink'
+        ]
+    },
+    {
+        label: 'Recent',
+        colors: []
+    }
+];
+
+const TextEditorMenu = ({ editor, selectedBlocks, isSelectionActive }) => {
+    const handleTextColorChange = (value) => {
+        const inputColor = value.metaColor.originalInput;
+        editor.addStyles({ textColor: inputColor });
+    };
+    const handleHighlightColorChange = (value) => {
+        const inputColor = value.metaColor.originalInput;
+        editor.addStyles({ backgroundColor: inputColor });
+    };
+
+    const memoizedBlockFormat = useMemo(() => {
+        const selectedBlock = selectedBlocks[0];
+        const selectedBlockStyle =
+            selectedBlock?.type === 'heading'
+                ? selectedBlock?.type + selectedBlock.props.level
+                : selectedBlock?.type;
+        const currentStyles = editor.getActiveStyles();
+
+        const selectedBlockTextColor = currentStyles.textColor || 'black';
+        const selectedBlockHighlightColor =
+            currentStyles.backgroundColor || 'transparent';
+        const isSelectedBlockTextBold = currentStyles.bold || false;
+        const isSelectedBlockTextUnderline = currentStyles.underline || false;
+        const isSelectedBlockTextItalic = currentStyles.italic || false;
+        return {
+            selectedBlockStyle,
+            selectedBlockTextColor,
+            selectedBlockHighlightColor,
+            isSelectedBlockTextBold,
+            isSelectedBlockTextUnderline,
+            isSelectedBlockTextItalic
+        };
+    }, [editor, selectedBlocks, isSelectionActive]);
+
+    const handleBlockTypeChange = (value) => {
+        selectedBlocks.forEach((block) => {
             let newBlock = { type: value };
 
             if (headingLevels[value]) {
                 newBlock = {
                     type: 'heading',
                     props: {
-                        ...currentBlock.props,
+                        ...block.props,
                         level: headingLevels[value]
                     }
                 };
             }
 
-            editor.updateBlock(currentBlock, newBlock);
-        },
-        [currentBlock, editor]
-    );
+            editor.updateBlock(block, newBlock);
+        });
+    };
+
+    const toggleTextBold = () => {
+        editor.toggleStyles({ bold: true });
+    };
+    const toggleTextUnderline = () => {
+        editor.toggleStyles({ underline: true });
+    };
+    const toggleTextItalics = () => {
+        editor.toggleStyles({ italic: true });
+    };
 
     return (
         <div className="flex items-center justify-between border bg-[#FBFBFB] px-2 font-JetBrains text-[14px] font-light text-[#303030]">
@@ -63,32 +149,67 @@ const TextEditorMenu = ({ editor, currentBlock }) => {
                     <Select
                         defaultValue={'paragraph'}
                         value={
-                            currentBlock.type === 'heading'
-                                ? currentBlock.type + currentBlock.props.level
-                                : currentBlock.type
+                            memoizedBlockFormat.selectedBlockStyle ||
+                            'paragraph'
                         }
                         options={formatOptions}
                         bordered={false}
                         className="min-w-[9rem] text-center font-JetBrains text-sm"
-                        onChange={handleFormatChange}
+                        onChange={handleBlockTypeChange}
                     />
 
                     {/* Font  */}
                     <Select defaultValue="lucy" bordered={false} />
                 </div>
                 <div className="flex items-center gap-6 font-extralight ">
-                    <span>
-                        Text <ColorPicker size="small" />
-                    </span>
-                    <span>
-                        Highlight <ColorPicker size="small" />
-                    </span>
+                    <CustomColorPicker
+                        title="Text"
+                        editor={editor}
+                        value={memoizedBlockFormat.selectedBlockTextColor}
+                        presets={textColorsPresets}
+                        handleColorChange={handleTextColorChange}
+                    />
+                    <CustomColorPicker
+                        title="Highlight"
+                        editor={editor}
+                        value={memoizedBlockFormat.selectedBlockHighlightColor}
+                        presets={highlightColorsPresets}
+                        handleColorChange={handleHighlightColorChange}
+                    />
                 </div>
 
                 <div className="flex items-center gap-5">
-                    <MdFormatBold size={'20'} />
-                    <BsTypeUnderline size={'20'} />
-                    <BsTypeItalic size={'20'} />
+                    <span
+                        className={
+                            memoizedBlockFormat.isSelectedBlockTextBold
+                                ? `rounded-md bg-slate-200`
+                                : ''
+                        }
+                    >
+                        <MdFormatBold size={'20'} onClick={toggleTextBold} />
+                    </span>
+                    <span
+                        className={
+                            memoizedBlockFormat.isSelectedBlockTextUnderline
+                                ? `rounded-md bg-slate-200`
+                                : ''
+                        }
+                    >
+                        <BsTypeUnderline
+                            size={'20'}
+                            onClick={toggleTextUnderline}
+                        />
+                    </span>
+                    <span
+                        className={
+                            memoizedBlockFormat.isSelectedBlockTextItalic
+                                ? `rounded-md bg-slate-200`
+                                : ''
+                        }
+                    >
+                        <BsTypeItalic size={'20'} onClick={toggleTextItalics} />
+                    </span>
+
                     <Button className="text-[14px] text-blue-500" type="text">
                         Link
                     </Button>
