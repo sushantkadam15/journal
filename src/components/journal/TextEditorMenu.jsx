@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import prompts from './prompts.json';
 
 import { Select, ColorPicker, Button } from 'antd';
 import { MdFormatBold } from 'react-icons/md';
@@ -79,36 +80,24 @@ const highlightColorsPresets = [
 ];
 
 const TextEditorMenu = ({ editor, selectedBlocks, isSelectionActive }) => {
-    const handleTextColorChange = (value) => {
-        const inputColor = value.metaColor.originalInput;
-        editor.addStyles({ textColor: inputColor });
-    };
-    const handleHighlightColorChange = (value) => {
-        const inputColor = value.metaColor.originalInput;
-        editor.addStyles({ backgroundColor: inputColor });
-    };
-
     const memoizedBlockFormat = useMemo(() => {
         const selectedBlock = selectedBlocks[0];
-        const selectedBlockStyle =
-            selectedBlock?.type === 'heading'
-                ? selectedBlock?.type + selectedBlock.props.level
-                : selectedBlock?.type;
-        const currentStyles = editor.getActiveStyles();
+        const { type, props } = selectedBlock || {};
+        const {
+            textColor = 'black',
+            backgroundColor = 'transparent',
+            bold = false,
+            underline = false,
+            italic = false
+        } = editor.getActiveStyles();
 
-        const selectedBlockTextColor = currentStyles.textColor || 'black';
-        const selectedBlockHighlightColor =
-            currentStyles.backgroundColor || 'transparent';
-        const isSelectedBlockTextBold = currentStyles.bold || false;
-        const isSelectedBlockTextUnderline = currentStyles.underline || false;
-        const isSelectedBlockTextItalic = currentStyles.italic || false;
         return {
-            selectedBlockStyle,
-            selectedBlockTextColor,
-            selectedBlockHighlightColor,
-            isSelectedBlockTextBold,
-            isSelectedBlockTextUnderline,
-            isSelectedBlockTextItalic
+            selectedBlockStyle: type === 'heading' ? type + props.level : type,
+            selectedBlockTextColor: textColor,
+            selectedBlockHighlightColor: backgroundColor,
+            isSelectedBlockTextBold: bold,
+            isSelectedBlockTextUnderline: underline,
+            isSelectedBlockTextItalic: italic
         };
     }, [editor, selectedBlocks, isSelectionActive]);
 
@@ -130,14 +119,40 @@ const TextEditorMenu = ({ editor, selectedBlocks, isSelectionActive }) => {
         });
     };
 
-    const toggleTextBold = () => {
-        editor.toggleStyles({ bold: true });
+    const handleColorChange = (style, value) => {
+        const inputColor = value.metaColor.originalInput;
+        editor.addStyles({ [style]: inputColor });
     };
-    const toggleTextUnderline = () => {
-        editor.toggleStyles({ underline: true });
+
+    const toggleTextStyle = (style) => {
+        editor.toggleStyles({ [style]: true });
     };
-    const toggleTextItalics = () => {
-        editor.toggleStyles({ italic: true });
+    const createLink = (url) => {
+        const text = editor.getSelectedText();
+        if (!text || text.trim() === '' || !url || url.trim() === '') return;
+        editor.createLink(url, text);
+    };
+
+    const generatePrompt = (emotion) => {
+        const positiveMoods = ['Happy', 'Relaxed', 'Excited'];
+        const selectedEmotion =
+            emotion ||
+            positiveMoods[Math.floor(Math.random() * positiveMoods.length)];
+
+        const promptsArray = prompts[selectedEmotion];
+        const randomIndex = Math.floor(Math.random() * promptsArray.length);
+        const currentPrompt = promptsArray[randomIndex];
+
+        const promptBlock = {
+            type: 'heading',
+            content: currentPrompt,
+            props: {
+                level: 3
+            }
+        };
+        const lastBlock =
+            editor.topLevelBlocks[editor.topLevelBlocks.length - 1];
+        editor.insertBlocks([promptBlock], lastBlock);
     };
 
     return (
@@ -167,14 +182,16 @@ const TextEditorMenu = ({ editor, selectedBlocks, isSelectionActive }) => {
                         editor={editor}
                         value={memoizedBlockFormat.selectedBlockTextColor}
                         presets={textColorsPresets}
-                        handleColorChange={handleTextColorChange}
+                        handleColorChange={() => handleColorChange('textColor')}
                     />
                     <CustomColorPicker
                         title="Highlight"
                         editor={editor}
                         value={memoizedBlockFormat.selectedBlockHighlightColor}
                         presets={highlightColorsPresets}
-                        handleColorChange={handleHighlightColorChange}
+                        handleColorChange={() =>
+                            handleColorChange('backgroundColor')
+                        }
                     />
                 </div>
 
@@ -186,7 +203,10 @@ const TextEditorMenu = ({ editor, selectedBlocks, isSelectionActive }) => {
                                 : ''
                         }
                     >
-                        <MdFormatBold size={'20'} onClick={toggleTextBold} />
+                        <MdFormatBold
+                            size={'20'}
+                            onClick={() => toggleTextStyle('bold')}
+                        />
                     </span>
                     <span
                         className={
@@ -197,7 +217,7 @@ const TextEditorMenu = ({ editor, selectedBlocks, isSelectionActive }) => {
                     >
                         <BsTypeUnderline
                             size={'20'}
-                            onClick={toggleTextUnderline}
+                            onClick={() => toggleTextStyle('underline')}
                         />
                     </span>
                     <span
@@ -207,16 +227,25 @@ const TextEditorMenu = ({ editor, selectedBlocks, isSelectionActive }) => {
                                 : ''
                         }
                     >
-                        <BsTypeItalic size={'20'} onClick={toggleTextItalics} />
+                        <BsTypeItalic
+                            size={'20'}
+                            onClick={() => toggleTextStyle('italic')}
+                        />
                     </span>
 
-                    <Button className="text-[14px] text-blue-500" type="text">
+                    {/* <Button className="text-[14px] text-blue-500" type="text"
+                    onClick={() => createLink('https://google.com')}
+                    >
                         Link
-                    </Button>
+                    </Button> */}
                 </div>
             </div>
             <div>
-                <Button className="flex items-center gap-2" type="text">
+                <Button
+                    className="flex items-center gap-2"
+                    type="text"
+                    onClick={() => generatePrompt()}
+                >
                     <FaLightbulb />
                     Add Prompt
                 </Button>
