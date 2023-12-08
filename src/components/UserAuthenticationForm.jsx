@@ -19,7 +19,7 @@ const UserAuthenticationForm = () => {
 
           <div className="mx-auto h-[28rem]  w-72 md:h-96 md:w-96">
             <h2 className=" mb-5 text-xl font-Numans">
-              {isSignInDisplayed ? "Sign In" : "Sign Up"}
+              {isSignInDisplayed ? "Sign In" : "Create an Account"}
             </h2>
 
             <form>

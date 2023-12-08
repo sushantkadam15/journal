@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import prompts from './prompts.json';
 
-import { Select, ColorPicker, Button } from 'antd';
+import { Select, Button } from 'antd';
 import { MdFormatBold } from 'react-icons/md';
 import { BsTypeUnderline, BsTypeItalic } from 'react-icons/bs';
 import { FaLightbulb } from 'react-icons/fa6';
@@ -233,11 +233,11 @@ const TextEditorMenu = ({ editor, selectedBlocks, isSelectionActive }) => {
                         />
                     </span>
 
-                    {/* <Button className="text-[14px] text-blue-500" type="text"
+                    <Button className="text-[14px] text-blue-500" type="text"
                     onClick={() => createLink('https://google.com')}
                     >
                         Link
-                    </Button> */}
+                    </Button>
                 </div>
             </div>
             <div>
