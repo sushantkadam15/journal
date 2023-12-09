@@ -1,12 +1,15 @@
 import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import prompts from './prompts.json';
 
 import { Select, Button } from 'antd';
 import { MdFormatBold } from 'react-icons/md';
 import { BsTypeUnderline, BsTypeItalic } from 'react-icons/bs';
-import { FaLightbulb } from 'react-icons/fa6';
 import CustomColorPicker from './CustomColorPicker';
+import { GoSidebarCollapse } from 'react-icons/go';
+import {
+    TbLayoutSidebarLeftCollapse,
+    TbLayoutSidebarRightCollapse
+} from 'react-icons/tb';
 
 const headingLevels = { heading1: 1, heading2: 2, heading3: 3 };
 
@@ -79,7 +82,13 @@ const highlightColorsPresets = [
     }
 ];
 
-const TextEditorMenu = ({ editor, selectedBlocks, isSelectionActive }) => {
+const TextEditorMenu = ({
+    editor,
+    selectedBlocks,
+    isSelectionActive,
+    textEditorMenuCollapseToggle,
+    setTextEditorMenuCollapseToggle
+}) => {
     const memoizedBlockFormat = useMemo(() => {
         const selectedBlock = selectedBlocks[0];
         const { type, props } = selectedBlock || {};
@@ -133,121 +142,114 @@ const TextEditorMenu = ({ editor, selectedBlocks, isSelectionActive }) => {
         editor.createLink(url, text);
     };
 
-    const generatePrompt = (emotion) => {
-        const positiveMoods = ['Happy', 'Relaxed', 'Excited'];
-        const selectedEmotion =
-            emotion ||
-            positiveMoods[Math.floor(Math.random() * positiveMoods.length)];
-
-        const promptsArray = prompts[selectedEmotion];
-        const randomIndex = Math.floor(Math.random() * promptsArray.length);
-        const currentPrompt = promptsArray[randomIndex];
-
-        const promptBlock = {
-            type: 'heading',
-            content: currentPrompt,
-            props: {
-                level: 3
-            }
-        };
-        const lastBlock =
-            editor.topLevelBlocks[editor.topLevelBlocks.length - 1];
-        editor.insertBlocks([promptBlock], lastBlock);
-    };
-
     return (
         <div className="flex items-center justify-between border bg-[#FBFBFB] px-2 font-JetBrains text-[14px] font-light text-[#303030]">
-            <div className="b flex h-12 items-center gap-16 ">
-                <div>
-                    {/* Format  */}
+            {textEditorMenuCollapseToggle && (
+                <div className=" flex h-12 items-center gap-16 ">
+                    <div>
+                        {/* Format  */}
 
-                    <Select
-                        defaultValue={'paragraph'}
-                        value={
-                            memoizedBlockFormat.selectedBlockStyle ||
-                            'paragraph'
-                        }
-                        options={formatOptions}
-                        bordered={false}
-                        className="min-w-[9rem] text-center font-JetBrains text-sm"
-                        onChange={handleBlockTypeChange}
-                    />
-
-                    {/* Font  */}
-                    <Select defaultValue="lucy" bordered={false} />
-                </div>
-                <div className="flex items-center gap-6 font-extralight ">
-                    <CustomColorPicker
-                        title="Text"
-                        editor={editor}
-                        value={memoizedBlockFormat.selectedBlockTextColor}
-                        presets={textColorsPresets}
-                        handleColorChange={() => handleColorChange('textColor')}
-                    />
-                    <CustomColorPicker
-                        title="Highlight"
-                        editor={editor}
-                        value={memoizedBlockFormat.selectedBlockHighlightColor}
-                        presets={highlightColorsPresets}
-                        handleColorChange={() =>
-                            handleColorChange('backgroundColor')
-                        }
-                    />
-                </div>
-
-                <div className="flex items-center gap-5">
-                    <span
-                        className={
-                            memoizedBlockFormat.isSelectedBlockTextBold
-                                ? `rounded-md bg-slate-200`
-                                : ''
-                        }
-                    >
-                        <MdFormatBold
-                            size={'20'}
-                            onClick={() => toggleTextStyle('bold')}
+                        <Select
+                            defaultValue={'paragraph'}
+                            value={
+                                memoizedBlockFormat.selectedBlockStyle ||
+                                'paragraph'
+                            }
+                            options={formatOptions}
+                            bordered={false}
+                            className="min-w-[9rem] text-center font-JetBrains text-sm"
+                            onChange={handleBlockTypeChange}
                         />
-                    </span>
-                    <span
-                        className={
-                            memoizedBlockFormat.isSelectedBlockTextUnderline
-                                ? `rounded-md bg-slate-200`
-                                : ''
-                        }
-                    >
-                        <BsTypeUnderline
-                            size={'20'}
-                            onClick={() => toggleTextStyle('underline')}
-                        />
-                    </span>
-                    <span
-                        className={
-                            memoizedBlockFormat.isSelectedBlockTextItalic
-                                ? `rounded-md bg-slate-200`
-                                : ''
-                        }
-                    >
-                        <BsTypeItalic
-                            size={'20'}
-                            onClick={() => toggleTextStyle('italic')}
-                        />
-                    </span>
 
-                    <Button className="text-[14px] text-blue-500" type="text"
-                    onClick={() => createLink('https://google.com')}
-                    >
-                        Link
-                    </Button>
+                        {/* Font  */}
+                        <Select defaultValue="lucy" bordered={false} />
+                    </div>
+                    <div className="flex items-center gap-6 font-extralight ">
+                        <CustomColorPicker
+                            title="Text"
+                            editor={editor}
+                            value={memoizedBlockFormat.selectedBlockTextColor}
+                            presets={textColorsPresets}
+                            handleColorChange={() =>
+                                handleColorChange('textColor')
+                            }
+                        />
+                        <CustomColorPicker
+                            title="Highlight"
+                            editor={editor}
+                            value={
+                                memoizedBlockFormat.selectedBlockHighlightColor
+                            }
+                            presets={highlightColorsPresets}
+                            handleColorChange={() =>
+                                handleColorChange('backgroundColor')
+                            }
+                        />
+                    </div>
+
+                    <div className="flex items-center gap-5">
+                        <span
+                            className={
+                                memoizedBlockFormat.isSelectedBlockTextBold
+                                    ? `rounded-md bg-slate-200`
+                                    : ''
+                            }
+                        >
+                            <MdFormatBold
+                                size={'20'}
+                                onClick={() => toggleTextStyle('bold')}
+                            />
+                        </span>
+                        <span
+                            className={
+                                memoizedBlockFormat.isSelectedBlockTextUnderline
+                                    ? `rounded-md bg-slate-200`
+                                    : ''
+                            }
+                        >
+                            <BsTypeUnderline
+                                size={'20'}
+                                onClick={() => toggleTextStyle('underline')}
+                            />
+                        </span>
+                        <span
+                            className={
+                                memoizedBlockFormat.isSelectedBlockTextItalic
+                                    ? `rounded-md bg-slate-200`
+                                    : ''
+                            }
+                        >
+                            <BsTypeItalic
+                                size={'20'}
+                                onClick={() => toggleTextStyle('italic')}
+                            />
+                        </span>
+
+                        <Button
+                            className="text-[14px] text-blue-500"
+                            type="text"
+                            onClick={() => createLink('https://google.com')}
+                        >
+                            Link
+                        </Button>
+                    </div>
                 </div>
-            </div>
-            <div>
+            )}
+
+            <div className="my-2">
                 <Button
-                    className="flex items-center gap-2"
-                    type="text"
-                    onClick={() => generatePrompt()}
+                    type="link"
+                    onClick={() =>
+                        setTextEditorMenuCollapseToggle(
+                            !textEditorMenuCollapseToggle
+                        )
+                    }
                 >
-                    <FaLightbulb />
-                    Add Prompt
+                    {textEditorMenuCollapseToggle ? (
+                        <TbLayoutSidebarLeftCollapse size={20} />
+                    ) : (
+                        <TbLayoutSidebarRightCollapse size={20} />
+                    )}
                 </Button>
             </div>
         </div>

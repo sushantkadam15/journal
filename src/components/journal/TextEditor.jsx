@@ -10,6 +10,7 @@ import {
 import '@blocknote/core/style.css';
 import TextEditorMenu from './TextEditorMenu';
 import TextEditorHeader from './TextEditorHeader';
+import PromptDisplay from './PromptDisplay';
 
 const TextEditor = () => {
     // Get the initial content from localStorage
@@ -26,6 +27,10 @@ const TextEditor = () => {
     const [selectedBlocks, setSelectedBlocks] = useState([]);
     const [isSelectionActive, setIsSelectionActive] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
+    const [isPromptDisplayVisible, setIsPromptDisplayVisible] = useState(false);
+    const [currentMood, setCurrentMood] = useState('happy');
+    const [isFocusModeOn, setIsFocusModeOn] = useState(false);
+    const [textEditorMenuCollapseToggle, setTextEditorMenuCollapseToggle] = useState(false);
 
     const scrollToBottom = () => {
         if (containerRef.current) {
@@ -112,10 +117,26 @@ const TextEditor = () => {
     // Renders the editor instance using a React component.
     return (
         <div className="m-4">
-            <TextEditorHeader />
-            <div className=" mx-auto mt-12 h-[88vh] max-h-[90vh]  border-slate-200 py-4 md:w-10/12 md:border">
+            <TextEditorHeader
+                currentMood={currentMood}
+                setCurrentMood={setCurrentMood}
+                isFocusModeOn={isFocusModeOn}
+                setIsFocusModeOn={setIsFocusModeOn}
+                setIsPromptDisplayVisible={setIsPromptDisplayVisible}
+                setTextEditorMenuCollapseToggle={setTextEditorMenuCollapseToggle}
+            />
+            <div className={` mx-auto  flex  flex-col border-slate-200 md:w-10/12 md:border ${isFocusModeOn? "h-[98vh] pt-5": " h-[88vh]  max-h-[90vh] mt-12"}`}>
+                {!isFocusModeOn && (
+                    <PromptDisplay
+                        isPromptDisplayVisible={isPromptDisplayVisible}
+                        setIsPromptDisplayVisible={setIsPromptDisplayVisible}
+                        currentMood={currentMood}
+                    />
+                )}
+
+                {/* Text Editor  */}
                 <div
-                    className={`mb-5 h-[95%] overflow-auto  ${
+                    className={`items-start overflow-auto  ${
                         isFocused &&
                         '[-ms-overflow-style:"none"] [scrollbar-width:"none"] [&::-webkit-scrollbar]:hidden'
                     }`}
@@ -131,13 +152,15 @@ const TextEditor = () => {
                     />
                 </div>
 
-                <div className="min-w-[81vw]">
+                <div className={`mt-auto ${textEditorMenuCollapseToggle? "" : "ml-auto"}`}>
                     <TextEditorMenu
                         editor={editor}
                         selectedBlocks={selectedBlocks}
                         setSelectedBlocks={setSelectedBlocks}
                         isSelectionActive={isSelectionActive}
                         setIsSelectionActive={setIsSelectionActive}
+                        textEditorMenuCollapseToggle={textEditorMenuCollapseToggle}
+                        setTextEditorMenuCollapseToggle={setTextEditorMenuCollapseToggle}
                     />
                 </div>
             </div>
