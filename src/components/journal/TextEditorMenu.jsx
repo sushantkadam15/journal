@@ -86,8 +86,8 @@ const TextEditorMenu = ({
     editor,
     selectedBlocks,
     isSelectionActive,
-    textEditorMenuCollapseToggle,
-    setTextEditorMenuCollapseToggle
+    isTextEditorMenuCollapsed,
+    setIsTextEditorMenuCollapsed
 }) => {
     const memoizedBlockFormat = useMemo(() => {
         const selectedBlock = selectedBlocks[0];
@@ -144,7 +144,7 @@ const TextEditorMenu = ({
 
     return (
         <div className="flex items-center justify-between border bg-[#FBFBFB] px-2 font-JetBrains text-[14px] font-light text-[#303030]">
-            {textEditorMenuCollapseToggle && (
+            {isTextEditorMenuCollapsed && (
                 <div className=" flex h-12 items-center gap-16 ">
                     <div>
                         {/* Format  */}
@@ -240,12 +240,12 @@ const TextEditorMenu = ({
                 <Button
                     type="link"
                     onClick={() =>
-                        setTextEditorMenuCollapseToggle(
-                            !textEditorMenuCollapseToggle
+                        setIsTextEditorMenuCollapsed(
+                            !isTextEditorMenuCollapsed
                         )
                     }
                 >
-                    {textEditorMenuCollapseToggle ? (
+                    {isTextEditorMenuCollapsed ? (
                         <TbLayoutSidebarLeftCollapse size={20} />
                     ) : (
                         <TbLayoutSidebarRightCollapse size={20} />

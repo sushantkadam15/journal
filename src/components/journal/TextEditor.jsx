@@ -30,7 +30,7 @@ const TextEditor = () => {
     const [isPromptDisplayVisible, setIsPromptDisplayVisible] = useState(false);
     const [currentMood, setCurrentMood] = useState('happy');
     const [isFocusModeOn, setIsFocusModeOn] = useState(false);
-    const [textEditorMenuCollapseToggle, setTextEditorMenuCollapseToggle] = useState(false);
+    const [isTextEditorMenuCollapsed, setIsTextEditorMenuCollapsed] = useState(false);
 
     const scrollToBottom = () => {
         if (containerRef.current) {
@@ -123,7 +123,7 @@ const TextEditor = () => {
                 isFocusModeOn={isFocusModeOn}
                 setIsFocusModeOn={setIsFocusModeOn}
                 setIsPromptDisplayVisible={setIsPromptDisplayVisible}
-                setTextEditorMenuCollapseToggle={setTextEditorMenuCollapseToggle}
+                setIsTextEditorMenuCollapsed={setIsTextEditorMenuCollapsed}
             />
             <div className={` mx-auto  flex  flex-col border-slate-200 md:w-10/12 md:border ${isFocusModeOn? "h-[98vh] pt-5": " h-[88vh]  max-h-[90vh] mt-12"}`}>
                 {!isFocusModeOn && (
@@ -152,15 +152,15 @@ const TextEditor = () => {
                     />
                 </div>
 
-                <div className={`mt-auto ${textEditorMenuCollapseToggle? "" : "ml-auto"}`}>
+                <div className={`mt-auto ${isTextEditorMenuCollapsed? "" : "ml-auto"}`}>
                     <TextEditorMenu
                         editor={editor}
                         selectedBlocks={selectedBlocks}
                         setSelectedBlocks={setSelectedBlocks}
                         isSelectionActive={isSelectionActive}
                         setIsSelectionActive={setIsSelectionActive}
-                        textEditorMenuCollapseToggle={textEditorMenuCollapseToggle}
-                        setTextEditorMenuCollapseToggle={setTextEditorMenuCollapseToggle}
+                        isTextEditorMenuCollapsed={isTextEditorMenuCollapsed}
+                        setIsTextEditorMenuCollapsed={setIsTextEditorMenuCollapsed}
                     />
                 </div>
             </div>

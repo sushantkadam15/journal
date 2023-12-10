@@ -34,7 +34,7 @@ const TextEditorHeader = ({
     isFocusModeOn,
     setIsFocusModeOn,
     setIsPromptDisplayVisible,
-    setTextEditorMenuCollapseToggle
+    setIsTextEditorMenuCollapsed
 }) => {
     // State for mood dropdown
     const [isMoodDropdownOpen, setIsMoodDropdownOpen] = useState(false);
@@ -99,7 +99,7 @@ const TextEditorHeader = ({
                             onClick={() => {
                                 setIsFocusModeOn(true);
                                 setIsPromptDisplayVisible(false);
-                                setTextEditorMenuCollapseToggle(false);
+                                setIsTextEditorMenuCollapsed(false);
                             }}
                         >
                             <img src={focusModeIcon} alt="focus mode" />
@@ -119,7 +119,7 @@ const TextEditorHeader = ({
                         <Button
                             type="link"
                             onClick={() => {setIsFocusModeOn(false)
-                                setTextEditorMenuCollapseToggle(true)
+                                setIsTextEditorMenuCollapsed(true)
                             }}
                         >
                             <BsFullscreenExit size={18} color="#A6A6C8" />
