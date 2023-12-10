@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import { Select, Button } from 'antd';
@@ -67,7 +67,6 @@ const highlightColorsPresets = [
         colors: [
             'grey',
             'brown',
-            'black',
             'orange',
             'yellow',
             'green',
@@ -128,9 +127,8 @@ const TextEditorMenu = ({
         });
     };
 
-    const handleColorChange = (style, value) => {
-        const inputColor = value.metaColor.originalInput;
-        editor.addStyles({ [style]: inputColor });
+    const handleColorChange = (inputColor, colorPickerStyles) => {
+        editor.addStyles({ [colorPickerStyles]: inputColor });
     };
 
     const toggleTextStyle = (style) => {
@@ -144,7 +142,7 @@ const TextEditorMenu = ({
 
     return (
         <div className="flex items-center justify-between border bg-[#FBFBFB] px-2 font-JetBrains text-[14px] font-light text-[#303030]">
-            {isTextEditorMenuCollapsed && (
+            {!isTextEditorMenuCollapsed && (
                 <div className=" flex h-12 items-center gap-16 ">
                     <div>
                         {/* Format  */}
@@ -164,15 +162,14 @@ const TextEditorMenu = ({
                         {/* Font  */}
                         <Select defaultValue="lucy" bordered={false} />
                     </div>
-                    <div className="flex items-center gap-6 font-extralight ">
+                    <div className="flex items-center gap-6 font-extralight">
                         <CustomColorPicker
                             title="Text"
                             editor={editor}
                             value={memoizedBlockFormat.selectedBlockTextColor}
                             presets={textColorsPresets}
-                            handleColorChange={() =>
-                                handleColorChange('textColor')
-                            }
+                            colorPickerStyles={'textColor'}
+                            handleColorChange={handleColorChange}
                         />
                         <CustomColorPicker
                             title="Highlight"
@@ -181,9 +178,8 @@ const TextEditorMenu = ({
                                 memoizedBlockFormat.selectedBlockHighlightColor
                             }
                             presets={highlightColorsPresets}
-                            handleColorChange={() =>
-                                handleColorChange('backgroundColor')
-                            }
+                            handleColorChange={handleColorChange}
+                            colorPickerStyles={'backgroundColor'}
                         />
                     </div>
 
@@ -240,9 +236,7 @@ const TextEditorMenu = ({
                 <Button
                     type="link"
                     onClick={() =>
-                        setIsTextEditorMenuCollapsed(
-                            !isTextEditorMenuCollapsed
-                        )
+                        setIsTextEditorMenuCollapsed(!isTextEditorMenuCollapsed)
                     }
                 >
                     {isTextEditorMenuCollapsed ? (

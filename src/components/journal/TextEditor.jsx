@@ -30,7 +30,8 @@ const TextEditor = () => {
     const [isPromptDisplayVisible, setIsPromptDisplayVisible] = useState(false);
     const [currentMood, setCurrentMood] = useState('happy');
     const [isFocusModeOn, setIsFocusModeOn] = useState(false);
-    const [isTextEditorMenuCollapsed, setIsTextEditorMenuCollapsed] = useState(false);
+    const [isTextEditorMenuCollapsed, setIsTextEditorMenuCollapsed] =
+        useState(false);
 
     const scrollToBottom = () => {
         if (containerRef.current) {
@@ -125,7 +126,13 @@ const TextEditor = () => {
                 setIsPromptDisplayVisible={setIsPromptDisplayVisible}
                 setIsTextEditorMenuCollapsed={setIsTextEditorMenuCollapsed}
             />
-            <div className={` mx-auto  flex  flex-col border-slate-200 md:w-10/12 md:border ${isFocusModeOn? "h-[98vh] pt-5": " h-[88vh]  max-h-[90vh] mt-12"}`}>
+            <div
+                className={` mx-auto  flex  flex-col border-slate-200 md:w-10/12 md:border ${
+                    isFocusModeOn
+                        ? 'h-[98vh] pt-5'
+                        : ' mt-12  h-[88vh] max-h-[90vh]'
+                }`}
+            >
                 {!isFocusModeOn && (
                     <PromptDisplay
                         isPromptDisplayVisible={isPromptDisplayVisible}
@@ -143,16 +150,14 @@ const TextEditor = () => {
                     ref={containerRef}
                     onFocus={() => setIsFocused(true)}
                 >
-                    <BlockNoteView
-                        editor={editor}
-                        theme={lightTheme}
-                        // onBlur={() => {
-                        //     editor.focus();
-                        // }}
-                    />
+                    <BlockNoteView editor={editor} theme={lightTheme} />
                 </div>
 
-                <div className={`mt-auto ${isTextEditorMenuCollapsed? "" : "ml-auto"}`}>
+                <div
+                    className={`mt-auto ${
+                        !isTextEditorMenuCollapsed ? '' : 'ml-auto'
+                    }`}
+                >
                     <TextEditorMenu
                         editor={editor}
                         selectedBlocks={selectedBlocks}
@@ -160,7 +165,9 @@ const TextEditor = () => {
                         isSelectionActive={isSelectionActive}
                         setIsSelectionActive={setIsSelectionActive}
                         isTextEditorMenuCollapsed={isTextEditorMenuCollapsed}
-                        setIsTextEditorMenuCollapsed={setIsTextEditorMenuCollapsed}
+                        setIsTextEditorMenuCollapsed={
+                            setIsTextEditorMenuCollapsed
+                        }
                     />
                 </div>
             </div>

@@ -1,7 +1,13 @@
 import React from 'react';
 import { Col, ColorPicker, Row, Space } from 'antd';
 
-const CustomColorPicker = ({ title, value, handleColorChange, presets }) => {
+const CustomColorPicker = ({
+    title,
+    value,
+    handleColorChange,
+    presets,
+    colorPickerStyles
+}) => {
     return (
         <Space direction="vertical">
             <Row align="middle">
@@ -24,7 +30,14 @@ const CustomColorPicker = ({ title, value, handleColorChange, presets }) => {
                                     <Presets />
                                 </div>
                             )}
-                            onChangeComplete={handleColorChange}
+                            onChangeComplete={(value) => {
+                                const inputColor =
+                                    value.metaColor.originalInput;
+                                handleColorChange(
+                                    inputColor,
+                                    colorPickerStyles
+                                );
+                            }}
                         />
                     </Col>
                 </Space>
