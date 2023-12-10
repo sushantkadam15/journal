@@ -5,24 +5,26 @@ import {
     darkDefaultTheme,
     useBlockNote,
     getDefaultReactSlashMenuItems,
-    Toolbar
 } from '@blocknote/react';
 import '@blocknote/core/style.css';
 import TextEditorMenu from './TextEditorMenu';
 import TextEditorHeader from './TextEditorHeader';
 import PromptDisplay from './PromptDisplay';
 
+// Main TextEditor component
 const TextEditor = () => {
     // Get the initial content from localStorage
     let initialContent = [];
     const containerRef = useRef(null);
 
+    // Try to parse the content from localStorage
     try {
         initialContent = JSON.parse(localStorage.getItem('content')) || [];
     } catch (error) {
         console.error('Error parsing JSON from localStorage:', error);
     }
 
+    // State variables
     const [content, setContent] = useState(initialContent || []);
     const [selectedBlocks, setSelectedBlocks] = useState([]);
     const [isSelectionActive, setIsSelectionActive] = useState(false);
@@ -33,6 +35,7 @@ const TextEditor = () => {
     const [isTextEditorMenuCollapsed, setIsTextEditorMenuCollapsed] =
         useState(false);
 
+    // Function to scroll to the bottom of the editor
     const scrollToBottom = () => {
         if (containerRef.current) {
             containerRef.current.scrollTop = containerRef.current.scrollHeight;
@@ -99,6 +102,7 @@ const TextEditor = () => {
         }
     });
 
+    // Function to capture selected blocks
     const captureSelectedBlocks = useCallback(
         (editor) => {
             const currentSelectedBlocks = editor.getSelection()?.blocks;
