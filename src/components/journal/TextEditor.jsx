@@ -4,12 +4,31 @@ import {
     lightDefaultTheme,
     darkDefaultTheme,
     useBlockNote,
-    getDefaultReactSlashMenuItems,
+    getDefaultReactSlashMenuItems
 } from '@blocknote/react';
 import '@blocknote/core/style.css';
 import TextEditorMenu from './TextEditorMenu';
 import TextEditorHeader from './TextEditorHeader';
 import PromptDisplay from './PromptDisplay';
+
+// Customize the theme
+const lightTheme = {
+    ...lightDefaultTheme,
+    fontFamily: 'JetBrains Mono, monospace',
+    borderRadius: 0
+};
+const darkTheme = {
+    ...darkDefaultTheme,
+    fontFamily: 'JetBrains Mono, monospace',
+    borderRadius: 0,
+    colors: {
+        ...darkDefaultTheme.colors,
+        editor: {
+            text: '#F5F5F5',
+            background: '#3E3E3E'
+        }
+    }
+};
 
 // Main TextEditor component
 const TextEditor = () => {
@@ -34,24 +53,13 @@ const TextEditor = () => {
     const [isFocusModeOn, setIsFocusModeOn] = useState(false);
     const [isTextEditorMenuCollapsed, setIsTextEditorMenuCollapsed] =
         useState(false);
+    const [theme, setTheme] = useState(lightTheme);
 
     // Function to scroll to the bottom of the editor
     const scrollToBottom = () => {
         if (containerRef.current) {
             containerRef.current.scrollTop = containerRef.current.scrollHeight;
         }
-    };
-
-    // Customize the theme
-    const lightTheme = {
-        ...lightDefaultTheme,
-        fontFamily: 'JetBrains Mono, monospace',
-        borderRadius: 0
-    };
-    const darkTheme = {
-        ...darkDefaultTheme,
-        fontFamily: 'JetBrains Mono, monospace',
-        borderRadius: 0
     };
 
     // Customize the slash menu items
@@ -119,6 +127,14 @@ const TextEditor = () => {
         [selectedBlocks, isSelectionActive]
     );
 
+    const darkModeToggle = () => {
+        if (theme === lightTheme) {
+            setTheme(darkTheme);
+        } else {
+            setTheme(lightTheme);
+        }
+    };
+
     // Renders the editor instance using a React component.
     return (
         <div className="m-4">
@@ -129,6 +145,7 @@ const TextEditor = () => {
                 setIsFocusModeOn={setIsFocusModeOn}
                 setIsPromptDisplayVisible={setIsPromptDisplayVisible}
                 setIsTextEditorMenuCollapsed={setIsTextEditorMenuCollapsed}
+                darkModeToggle={darkModeToggle}
             />
             <div
                 className={` mx-auto  flex  flex-col border-slate-200 md:w-10/12 md:border ${
@@ -154,7 +171,7 @@ const TextEditor = () => {
                     ref={containerRef}
                     onFocus={() => setIsFocused(true)}
                 >
-                    <BlockNoteView editor={editor} theme={lightTheme} />
+                    <BlockNoteView editor={editor} theme={theme} />
                 </div>
 
                 <div

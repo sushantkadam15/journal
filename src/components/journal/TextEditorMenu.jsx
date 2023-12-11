@@ -5,7 +5,6 @@ import { Select, Button } from 'antd';
 import { MdFormatBold } from 'react-icons/md';
 import { BsTypeUnderline, BsTypeItalic } from 'react-icons/bs';
 import CustomColorPicker from './CustomColorPicker';
-import { GoSidebarCollapse } from 'react-icons/go';
 import {
     TbLayoutSidebarLeftCollapse,
     TbLayoutSidebarRightCollapse

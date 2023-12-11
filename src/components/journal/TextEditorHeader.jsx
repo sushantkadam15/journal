@@ -34,11 +34,12 @@ const TextEditorHeader = ({
     isFocusModeOn,
     setIsFocusModeOn,
     setIsPromptDisplayVisible,
-    setIsTextEditorMenuCollapsed
+    setIsTextEditorMenuCollapsed,
+    darkModeToggle
 }) => {
     // State for mood dropdown
     const [isMoodDropdownOpen, setIsMoodDropdownOpen] = useState(false);
-    
+
     // Function to handle mood change
     const onMoodChange = (mood) => {
         setCurrentMood(mood);
@@ -89,7 +90,9 @@ const TextEditorHeader = ({
 
                     {/* Buttons for dark mode, focus mode, and sound */}
                     <div className="flex gap-8">
-                        <button className="flex flex-col items-center gap-3 bg-transparent">
+                        <button className="flex flex-col items-center gap-3 bg-transparent"
+                        onClick={darkModeToggle}
+                        >
                             <img src={darkModeIcon} alt="dark mode" />
                             <span>Dark Mode</span>
                         </button>
@@ -99,7 +102,7 @@ const TextEditorHeader = ({
                             onClick={() => {
                                 setIsFocusModeOn(true);
                                 setIsPromptDisplayVisible(false);
-                                setIsTextEditorMenuCollapsed(false);
+                                setIsTextEditorMenuCollapsed(true);
                             }}
                         >
                             <img src={focusModeIcon} alt="focus mode" />
@@ -118,8 +121,9 @@ const TextEditorHeader = ({
                     <Tooltip title="Exit Focus Mode" trigger="hover">
                         <Button
                             type="link"
-                            onClick={() => {setIsFocusModeOn(false)
-                                setIsTextEditorMenuCollapsed(true)
+                            onClick={() => {
+                                setIsFocusModeOn(false);
+                                setIsTextEditorMenuCollapsed(false);
                             }}
                         >
                             <BsFullscreenExit size={18} color="#A6A6C8" />

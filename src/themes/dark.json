@@ -4,11 +4,12 @@
     "colorInfo": "#7c7065",
     "colorSuccess": "#5dfdcb",
     "colorWarning": "#ffd791",
-    "colorTextBase": "#303030",
+    "colorTextBase": "#f5f5f5",
     "fontSize": 14,
     "borderRadius": 1,
     "wireframe": false,
-    "fontFamily": "'Numans', sans-serif;"
+    "fontFamily": "'Numans', sans-serif;",
+    "colorBgBase": "#3e3e3e"
   },
   "components": {
     "Typography": {
