@@ -34,7 +34,7 @@ const PromptDisplay = ({
             <div
                 className={
                     isPromptDisplayVisible
-                        ? 'mb-4 pb-2 flex flex-col   bg-[#85858514] '
+                        ? 'mb-4 pb-2 flex flex-col dark:bg-bg-dark-bg-secondary   bg-[#85858514] '
                         : 'hidden'
                 }
             >
@@ -46,7 +46,7 @@ const PromptDisplay = ({
                     <IoCloseSharp size={20} />
                 </Button>
                 <div className="flex items-center px-5 pb-5">
-                    <p className="ml-auto font-JetBrains font-medium tracking-wider text-[#303030]">
+                    <p className="ml-auto font-JetBrains font-medium tracking-wider">
                         {prompt}
                     </p>
                     <span className="ml-auto">
@@ -61,7 +61,7 @@ const PromptDisplay = ({
                     className={
                         isPromptDisplayVisible
                             ? 'hidden'
-                            : 'ml-auto flex items-center gap-2'
+                            : 'ml-auto flex items-center gap-2 '
                     }
                     type="default"
                     onClick={() => {

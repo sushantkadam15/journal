@@ -140,7 +140,7 @@ const TextEditorMenu = ({
     };
 
     return (
-        <div className="flex items-center justify-between border bg-[#FBFBFB] px-2 font-JetBrains text-[14px] font-light text-[#303030]">
+        <div className="dark:bg-bg-dark-bg-secondary flex items-center justify-between border bg-[#FBFBFB] px-2 font-JetBrains text-[14px] font-light text-[#303030]">
             {!isTextEditorMenuCollapsed && (
                 <div className=" flex h-12 items-center gap-16 ">
                     <div>

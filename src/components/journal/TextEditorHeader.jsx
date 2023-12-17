@@ -12,7 +12,6 @@ import palmTreeIcon from '../../assets/icons/mood/tree-palm.svg';
 import waterIcon from '../../assets/icons/mood/water.svg';
 import focusModeIcon from '../../assets/icons/circle-dot.svg';
 import darkModeIcon from '../../assets/icons/circle-half-stroke.svg';
-import soundIcon from '../../assets/icons/volume-off.svg';
 import { BsFullscreenExit, BsVolumeMute, BsVolumeUp } from 'react-icons/bs';
 
 import zenMusic from '../../assets/music/zen-music.mp3';
@@ -37,7 +36,7 @@ const TextEditorHeader = ({
     setIsFocusModeOn,
     setIsPromptDisplayVisible,
     setIsTextEditorMenuCollapsed,
-    darkModeToggle,
+    toggleDarkMode,
     isMusicOn,
     setIsMusicOn
 }) => {
@@ -137,7 +136,7 @@ const TextEditorHeader = ({
                     <div className="flex gap-8">
                         <button
                             className="flex flex-col items-center gap-3 bg-transparent"
-                            onClick={darkModeToggle}
+                            onClick={toggleDarkMode}
                         >
                             <img src={darkModeIcon} alt="dark mode" />
                             <span>Dark Mode</span>

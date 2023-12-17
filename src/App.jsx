@@ -1,13 +1,14 @@
 import JournalView from './components/journal/JournalView';
 import UserAuthenticationForm from './components/UserAuthenticationForm';
-import { useState } from 'react';
+import { useTheme } from './contexts/ThemeContext';
 
 function App() {
+    const { isDarkMode } = useTheme();
     return (
-        <section>
+        <main>
             {/* <UserAuthenticationForm /> */}
             <JournalView />
-        </section>
+        </main>
     );
 }
 

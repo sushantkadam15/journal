@@ -3,15 +3,14 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './styles/preflight.css';
 import './styles/index.css';
-import { ConfigProvider } from 'antd';
+import { ThemeProvider } from './contexts/ThemeContext';
 
-import lightTheme from './theme/light.json';
-import darkTheme from './theme/dark.json';
 
+ThemeProvider;
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <ConfigProvider theme={lightTheme}>
+        <ThemeProvider>
             <App />
-        </ConfigProvider>
+        </ThemeProvider>
     </React.StrictMode>
 );
