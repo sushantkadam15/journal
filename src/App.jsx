@@ -6,8 +6,8 @@ function App() {
     const { isDarkMode } = useTheme();
     return (
         <main>
-            {/* <UserAuthenticationForm /> */}
-            <JournalView />
+            <UserAuthenticationForm />
+            {/* <JournalView /> */}
         </main>
     );
 }

@@ -102,7 +102,7 @@ const UserAuthenticationForm = () => {
           </div>
         </Row>
         <Row className=" mt-10  h-[15%]  bg-[#F9B3B30D] md:h-[16%]">
-          <p className=" m-5 mx-auto mt-auto text-xs font-light text-[#7c7065cf] ">
+          <p className=" m-5 mx-auto mt-auto text-xs font-light text-[#7c7065cf] dark:text-text-dark-primary ">
             {" "}
             Created with 🧡 by Candice & Sushant{" "}
           </p>
