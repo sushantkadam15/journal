@@ -9,6 +9,7 @@ import {
     TbLayoutSidebarLeftCollapse,
     TbLayoutSidebarRightCollapse
 } from 'react-icons/tb';
+import { useTheme } from '../../contexts/ThemeContext';
 
 const headingLevels = { heading1: 1, heading2: 2, heading3: 3 };
 
@@ -87,6 +88,9 @@ const TextEditorMenu = ({
     isTextEditorMenuCollapsed,
     setIsTextEditorMenuCollapsed
 }) => {
+    const { isDarkMode } = useTheme();
+    const iconColor = isDarkMode ? '#F5F5F5' : '#303030';
+
     const memoizedBlockFormat = useMemo(() => {
         const selectedBlock = selectedBlocks[0];
         const { type, props } = selectedBlock || {};
@@ -192,6 +196,7 @@ const TextEditorMenu = ({
                         >
                             <MdFormatBold
                                 size={'20'}
+                                color={iconColor}
                                 onClick={() => toggleTextStyle('bold')}
                             />
                         </span>
@@ -204,6 +209,7 @@ const TextEditorMenu = ({
                         >
                             <BsTypeUnderline
                                 size={'20'}
+                                color={iconColor}
                                 onClick={() => toggleTextStyle('underline')}
                             />
                         </span>
@@ -216,6 +222,7 @@ const TextEditorMenu = ({
                         >
                             <BsTypeItalic
                                 size={'20'}
+                                color={iconColor}
                                 onClick={() => toggleTextStyle('italic')}
                             />
                         </span>
@@ -239,9 +246,15 @@ const TextEditorMenu = ({
                     }
                 >
                     {isTextEditorMenuCollapsed ? (
-                        <TbLayoutSidebarLeftCollapse size={20} />
+                        <TbLayoutSidebarLeftCollapse
+                            size={20}
+                            color={iconColor}
+                        />
                     ) : (
-                        <TbLayoutSidebarRightCollapse size={20} />
+                        <TbLayoutSidebarRightCollapse
+                            size={20}
+                            color={iconColor}
+                        />
                     )}
                 </Button>
             </div>
