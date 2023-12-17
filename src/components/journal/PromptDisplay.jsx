@@ -70,7 +70,7 @@ const PromptDisplay = ({
                     }}
                 >
                     <FaLightbulb />
-                    Add Prompt
+                    Generate Prompt
                 </Button>
             </div>
         </>

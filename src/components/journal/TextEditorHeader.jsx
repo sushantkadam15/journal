@@ -1,5 +1,5 @@
 // Importing necessary libraries and assets
-import { useState } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import logo from '../../assets/logo.svg';
 import { Button, Select, Tooltip } from 'antd';
 import lightningIcon from '../../assets/icons/mood/bolt-lightning.svg';
@@ -13,7 +13,9 @@ import waterIcon from '../../assets/icons/mood/water.svg';
 import focusModeIcon from '../../assets/icons/circle-dot.svg';
 import darkModeIcon from '../../assets/icons/circle-half-stroke.svg';
 import soundIcon from '../../assets/icons/volume-off.svg';
-import { BsFullscreenExit } from 'react-icons/bs';
+import { BsFullscreenExit, BsVolumeMute, BsVolumeUp } from 'react-icons/bs';
+
+import zenMusic from '../../assets/music/zen-music.mp3';
 
 // Mood options for the dropdown
 const moodOptions = [
@@ -35,14 +37,57 @@ const TextEditorHeader = ({
     setIsFocusModeOn,
     setIsPromptDisplayVisible,
     setIsTextEditorMenuCollapsed,
-    darkModeToggle
+    darkModeToggle,
+    isMusicOn,
+    setIsMusicOn
 }) => {
     // State for mood dropdown
     const [isMoodDropdownOpen, setIsMoodDropdownOpen] = useState(false);
+    const audio = useMemo(() => new Audio(zenMusic), []);
 
     // Function to handle mood change
     const onMoodChange = (mood) => {
         setCurrentMood(mood);
+    };
+
+    const toggleAudio = () => {
+        if (audio.paused) {
+            audio.play();
+            setIsMusicOn(true);
+        } else {
+            audio.pause();
+            setIsMusicOn(false);
+        }
+    };
+
+    const toggleFullScreen = () => {
+        // Get the root element of the document
+        const doc = document.documentElement;
+
+        // Define the requestFullscreen function, accounting for browser compatibility
+        // This function will be used to make the document go fullscreen
+        const requestFullscreen =
+            doc.requestFullscreen ||
+            doc.mozRequestFullScreen ||
+            doc.webkitRequestFullscreen ||
+            doc.msRequestFullscreen;
+
+        // Define the exitFullscreen function, accounting for browser compatibility
+        // This function will be used to exit fullscreen mode
+        const exitFullscreen =
+            document.exitFullscreen ||
+            document.webkitExitFullscreen ||
+            document.mozCancelFullScreen ||
+            document.msExitFullscreen;
+
+        // Check if the document is currently in fullscreen mode
+        if (!document.fullscreenElement) {
+            // If it's not in fullscreen mode, enter fullscreen mode
+            requestFullscreen.call(doc);
+        } else {
+            // If it's in fullscreen mode, exit fullscreen mode
+            exitFullscreen.call(document);
+        }
     };
 
     // Component return
@@ -90,8 +135,9 @@ const TextEditorHeader = ({
 
                     {/* Buttons for dark mode, focus mode, and sound */}
                     <div className="flex gap-8">
-                        <button className="flex flex-col items-center gap-3 bg-transparent"
-                        onClick={darkModeToggle}
+                        <button
+                            className="flex flex-col items-center gap-3 bg-transparent"
+                            onClick={darkModeToggle}
                         >
                             <img src={darkModeIcon} alt="dark mode" />
                             <span>Dark Mode</span>
@@ -103,15 +149,23 @@ const TextEditorHeader = ({
                                 setIsFocusModeOn(true);
                                 setIsPromptDisplayVisible(false);
                                 setIsTextEditorMenuCollapsed(true);
+                                toggleFullScreen();
                             }}
                         >
                             <img src={focusModeIcon} alt="focus mode" />
                             <span>Focus Mode</span>
                         </button>
 
-                        <button className="flex flex-col items-center gap-3 bg-transparent">
-                            <img src={soundIcon} alt="sound" />
-                            <span>Sound</span>
+                        <button
+                            className="-mt-1 flex flex-col items-center gap-3 bg-transparent"
+                            onClick={toggleAudio}
+                        >
+                            {isMusicOn ? (
+                                <BsVolumeMute size={24} color="#A6A6C8" />
+                            ) : (
+                                <BsVolumeUp size={24} color="#A6A6C8" />
+                            )}
+                            <span className="-m-1">Sound</span>
                         </button>
                     </div>
                 </div>

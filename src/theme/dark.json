@@ -1,0 +1,28 @@
+{
+  "token": {
+    "colorPrimary": "#7c7065",
+    "colorInfo": "#7c7065",
+    "colorSuccess": "#5dfdcb",
+    "colorWarning": "#ffd791",
+    "colorTextBase": "#f5f5f5",
+    "fontSize": 14,
+    "borderRadius": 1,
+    "wireframe": false,
+    "fontFamily": "'Numans', sans-serif;",
+    "colorBgBase": "#3e3e3e"
+  },
+  "components": {
+    "Typography": {
+      "fontFamilyCode": "font-family: 'Numans', sans-serif;",
+      "colorWarning": "rgb(244, 185, 80)",
+      "colorSuccess": "rgb(81, 228, 182)"
+    },
+    "Button": {
+      "defaultBg": "rgb(255, 255, 255)",
+      "fontFamily": "'JetBrains Mono', 'monospace'"
+    },
+    "Input": {
+      "fontFamily": "'JetBrains Mono', 'monospace'"
+    }
+  }
+}

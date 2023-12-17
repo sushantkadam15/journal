@@ -5,8 +5,8 @@ import './styles/preflight.css';
 import './styles/index.css';
 import { ConfigProvider } from 'antd';
 
-import lightTheme from './themes/light.json';
-import darkTheme from './themes/dark.json';
+import lightTheme from './theme/light.json';
+import darkTheme from './theme/dark.json';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>

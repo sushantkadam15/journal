@@ -54,6 +54,7 @@ const TextEditor = () => {
     const [isTextEditorMenuCollapsed, setIsTextEditorMenuCollapsed] =
         useState(false);
     const [theme, setTheme] = useState(lightTheme);
+    const [isMusicOn, setIsMusicOn] = useState(false);
 
     // Function to scroll to the bottom of the editor
     const scrollToBottom = () => {
@@ -146,6 +147,8 @@ const TextEditor = () => {
                 setIsPromptDisplayVisible={setIsPromptDisplayVisible}
                 setIsTextEditorMenuCollapsed={setIsTextEditorMenuCollapsed}
                 darkModeToggle={darkModeToggle}
+                isMusicOn={isMusicOn}
+                setIsMusicOn={setIsMusicOn}
             />
             <div
                 className={` mx-auto  flex  flex-col border-slate-200 md:w-10/12 md:border ${
