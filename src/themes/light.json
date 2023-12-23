@@ -21,6 +21,11 @@
         },
         "Input": {
             "fontFamily": "'JetBrains Mono', 'monospace'"
+        },
+        "Menu": {
+            "itemBg": "#FAFAFA",
+            "subMenuItemBg": "#EBEBEB",
+            "fontFamily": "'JetBrains Mono', 'monospace'"  
         }
     }
 }

@@ -149,7 +149,6 @@ const AuthenticationForm = () => {
                         {' '}
                         Created with 🧡 by Candice & Sushant{' '}
                     </p>
-                    {/* New content pending  */}
                 </Row>
             </Col>
             <Col xs={0} md={10} className=" relative">
