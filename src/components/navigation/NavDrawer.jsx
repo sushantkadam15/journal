@@ -154,6 +154,7 @@ const NavDrawer = () => {
                     fontFamily: 'JetBrains Mono'
                 }}
                 placement={'left'}
+                closable={false}
                 onClose={hideDrawer}
                 open={open}
                 key={'left'}
