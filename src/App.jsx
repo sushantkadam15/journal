@@ -1,5 +1,5 @@
-import JournalView from './components/journal/JournalView';
-import UserAuthenticationForm from './components/UserAuthenticationForm';
+import JournalView from './components/text-editor/JournalView';
+import UserAuthenticationForm from './components/authentication/UserAuthenticationForm';
 import { useTheme } from './contexts/ThemeContext';
 
 function App() {

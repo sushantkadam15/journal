@@ -1,7 +1,7 @@
-import backgroundVideo from '../assets/authentication/authentication_page.mp4';
-import logo from '../assets/logo.svg';
-import googleIcon from '../assets/authentication/devicon_google.png';
-import appleIcon from '../assets/authentication/bi_apple.png';
+import backgroundVideo from '../../assets/authentication/authentication_page.mp4';
+import logo from '../../assets/logo.svg';
+import googleIcon from '../../assets/authentication/devicon_google.png';
+import appleIcon from '../../assets/authentication/bi_apple.png';
 import { Col, Row, Input, Button, Divider } from 'antd';
 import { useState } from 'react';
 
