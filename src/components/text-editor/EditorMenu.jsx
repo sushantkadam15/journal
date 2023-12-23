@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Select, Button, Popover, Input, Alert } from 'antd';
 import { MdFormatBold } from 'react-icons/md';
 import { BsTypeUnderline, BsTypeItalic } from 'react-icons/bs';
-import CustomColorPicker from './CustomColorPicker';
+import ColorPicker from './ColorPicker';
 import {
     TbLayoutSidebarLeftCollapse,
     TbLayoutSidebarRightCollapse
@@ -93,7 +93,7 @@ const fonts = [
     { label: 'Noto Sans', value: " 'Noto Sans', 'sans-serif'" }
 ];
 
-const TextEditorMenu = ({
+const EditorMenu = ({
     editor,
     selectedBlocks,
     isSelectionActive,
@@ -237,7 +237,7 @@ const TextEditorMenu = ({
                         />
                     </div>
                     <div className="flex items-center gap-6 font-extralight">
-                        <CustomColorPicker
+                        <ColorPicker
                             title="Text"
                             editor={editor}
                             value={memoizedBlockFormat.selectedBlockTextColor}
@@ -245,7 +245,7 @@ const TextEditorMenu = ({
                             colorPickerStyles={'textColor'}
                             handleColorChange={handleColorChange}
                         />
-                        <CustomColorPicker
+                        <ColorPicker
                             title="Highlight"
                             editor={editor}
                             value={
@@ -339,16 +339,4 @@ const TextEditorMenu = ({
     );
 };
 
-TextEditorMenu.propTypes = {
-    editor: PropTypes.object.isRequired,
-    currentBlock: PropTypes.shape({
-        type: PropTypes.string,
-        props: PropTypes.object
-    })
-};
-
-TextEditorMenu.defaultProps = {
-    currentBlock: {}
-};
-
-export default TextEditorMenu;
+export default EditorMenu;

@@ -5,13 +5,13 @@ import {
     getDefaultReactSlashMenuItems
 } from '@blocknote/react';
 import '@blocknote/core/style.css';
-import TextEditorMenu from './TextEditorMenu';
-import TextEditorHeader from './TextEditorHeader';
-import PromptDisplay from './PromptDisplay';
+import EditorMenu from './EditorMenu';
+import EditorHeader from './EditorHeader';
+import PromptDisplayCard from './PromptDisplayCard';
 import { useTheme } from '../../contexts/ThemeContext';
 
 // Main TextEditor component
-const TextEditor = () => {
+const Editor = () => {
     // Get the initial content from localStorage
     let initialContent = [];
     const containerRef = useRef(null);
@@ -112,7 +112,7 @@ const TextEditor = () => {
     // Renders the editor instance using a React component.
     return (
         <div className="m-4">
-            <TextEditorHeader
+            <EditorHeader
                 currentMood={currentMood}
                 setCurrentMood={setCurrentMood}
                 isFocusModeOn={isFocusModeOn}
@@ -131,7 +131,7 @@ const TextEditor = () => {
                 }`}
             >
                 {!isFocusModeOn && (
-                    <PromptDisplay
+                    <PromptDisplayCard
                         isPromptDisplayVisible={isPromptDisplayVisible}
                         setIsPromptDisplayVisible={setIsPromptDisplayVisible}
                         currentMood={currentMood}
@@ -155,7 +155,7 @@ const TextEditor = () => {
                         !isTextEditorMenuCollapsed ? '' : 'ml-auto'
                     }`}
                 >
-                    <TextEditorMenu
+                    <EditorMenu
                         editor={editor}
                         selectedBlocks={selectedBlocks}
                         setSelectedBlocks={setSelectedBlocks}
@@ -172,4 +172,4 @@ const TextEditor = () => {
     );
 };
 
-export default TextEditor;
+export default Editor;

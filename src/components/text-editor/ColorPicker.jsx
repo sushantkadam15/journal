@@ -1,7 +1,7 @@
 import React from 'react';
-import { Col, ColorPicker, Row, Space } from 'antd';
+import { Col, ColorPicker as AntColorPicker, Row, Space } from 'antd';
 
-const CustomColorPicker = ({
+const ColorPicker = ({
     title,
     value,
     handleColorChange,
@@ -12,9 +12,11 @@ const CustomColorPicker = ({
         <Space direction="vertical">
             <Row align="middle">
                 <Space>
-                    <span className='dark:text-text-dark-primary font-JetBrains'>{title}: </span>
+                    <span className="font-JetBrains dark:text-text-dark-primary">
+                        {title}:{' '}
+                    </span>
                     <Col>
-                        <ColorPicker
+                        <AntColorPicker
                             size="small"
                             placement="top"
                             styles={{
@@ -46,4 +48,4 @@ const CustomColorPicker = ({
     );
 };
 
-export default CustomColorPicker;
+export default ColorPicker;

@@ -1,13 +1,13 @@
-import JournalView from './components/text-editor/JournalView';
-import UserAuthenticationForm from './components/authentication/UserAuthenticationForm';
+import JournalViewer from './components/text-editor/JournalViewer';
+import AuthenticationForm from './components/authentication/AuthenticationForm';
 import { useTheme } from './contexts/ThemeContext';
 
 function App() {
     const { isDarkMode } = useTheme();
     return (
         <main>
-            {/* <UserAuthenticationForm /> */}
-            <JournalView />
+            {/* <AuthenticationForm /> */}
+            <JournalViewer />
         </main>
     );
 }

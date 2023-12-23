@@ -29,7 +29,7 @@ const moodOptions = [
 ];
 
 // TextEditorHeader component
-const TextEditorHeader = ({
+const EditorHeader = ({
     currentMood,
     setCurrentMood,
     isFocusModeOn,
@@ -189,4 +189,4 @@ const TextEditorHeader = ({
 };
 
 // Exporting the component
-export default TextEditorHeader;
+export default EditorHeader;

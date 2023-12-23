@@ -5,7 +5,7 @@ import appleIcon from '../../assets/authentication/bi_apple.png';
 import { Col, Row, Input, Button, Divider } from 'antd';
 import { useState } from 'react';
 
-const UserAuthenticationForm = () => {
+const AuthenticationForm = () => {
     const [isSignInDisplayed, setIsSignInDisplayed] = useState(true);
 
     return (
@@ -168,4 +168,4 @@ const UserAuthenticationForm = () => {
     );
 };
 
-export default UserAuthenticationForm;
+export default AuthenticationForm;
