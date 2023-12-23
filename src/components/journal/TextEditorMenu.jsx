@@ -218,21 +218,17 @@ const TextEditorMenu = ({
                         <Select
                             defaultValue={'JetBrains Mono'}
                             value={fontFamily}
-                            options={
-                                fonts.map(({ label, value }) => ({
-                                    value,
-                                    label: (
-                                        <div
-                                            className="font-JetBrains"
-                                            style={{ fontFamily: value }}
-                                        >
-                                            {label}
-                                        </div>
-                                    )
-                                }))
-
-
-                            }
+                            options={fonts.map(({ label, value }) => ({
+                                value,
+                                label: (
+                                    <div
+                                        className="w-32"
+                                        style={{ fontFamily: value }}
+                                    >
+                                        {label}
+                                    </div>
+                                )
+                            }))}
                             bordered={false}
                             className="min-w-[9rem] text-center font-JetBrains text-sm"
                             onChange={(value) => {
