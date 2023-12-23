@@ -304,7 +304,7 @@ const TextEditorMenu = ({
                             open={openLinkPopover}
                         >
                             <Button
-                                className="text-[14px] text-blue-500"
+                                className="font-JetBrains text-[14px] text-blue-500"
                                 type="text"
                                 onClick={handleLinkPopoverChange}
                             >

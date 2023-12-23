@@ -12,7 +12,7 @@ const CustomColorPicker = ({
         <Space direction="vertical">
             <Row align="middle">
                 <Space>
-                    <span className='dark:text-text-dark-primary'>{title}: </span>
+                    <span className='dark:text-text-dark-primary font-JetBrains'>{title}: </span>
                     <Col>
                         <ColorPicker
                             size="small"
