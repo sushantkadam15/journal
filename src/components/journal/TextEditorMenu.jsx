@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Select, Button } from 'antd';
+import { Select, Button, Popover, Input, Alert } from 'antd';
 import { MdFormatBold } from 'react-icons/md';
 import { BsTypeUnderline, BsTypeItalic } from 'react-icons/bs';
 import CustomColorPicker from './CustomColorPicker';
@@ -90,6 +90,8 @@ const TextEditorMenu = ({
 }) => {
     const { isDarkMode } = useTheme();
     const iconColor = isDarkMode ? '#F5F5F5' : '#303030';
+    const [openLinkPopover, setOpenLinkPopover] = useState(false);
+    const [linkUrl, setLinkUrl] = useState('');
 
     const memoizedBlockFormat = useMemo(() => {
         const selectedBlock = selectedBlocks[0];
@@ -137,14 +139,52 @@ const TextEditorMenu = ({
     const toggleTextStyle = (style) => {
         editor.toggleStyles({ [style]: true });
     };
+
     const createLink = (url) => {
+        const isValidUrl = (string) => {
+            try {
+                new URL(string);
+                return true;
+            } catch (_) {
+                return false;
+            }
+        };
+
+        if (!isValidUrl(url)) {
+            console.error('Invalid URL');
+            return;
+        }
+
         const text = editor.getSelectedText();
         if (!text || text.trim() === '' || !url || url.trim() === '') return;
+        editor.addStyles({
+            ['textColor']: 'blue',
+            ['textDecoration']: 'underline'
+        });
         editor.createLink(url, text);
     };
 
+    const linkContent = (
+        <Input
+            placeholder="Paste Link Here"
+            onChange={(e) => setLinkUrl(e.target.value)}
+            onPressEnter={() => {
+                createLink(linkUrl);
+                setOpenLinkPopover(false);
+                setLinkUrl('');
+            }}
+            onBlur={() => {
+                setOpenLinkPopover(false);
+            }}
+        />
+    );
+
+    const handleLinkPopoverChange = () => {
+        setOpenLinkPopover(true);
+    };
+
     return (
-        <div className="dark:bg-bg-dark-bg-secondary flex items-center justify-between border bg-[#FBFBFB] px-2 font-JetBrains text-[14px] font-light text-[#303030]">
+        <div className="flex items-center justify-between border bg-[#FBFBFB] px-2 font-JetBrains text-[14px] font-light text-[#303030] dark:bg-bg-dark-bg-secondary">
             {!isTextEditorMenuCollapsed && (
                 <div className=" flex h-12 items-center gap-16 ">
                     <div>
@@ -226,14 +266,20 @@ const TextEditorMenu = ({
                                 onClick={() => toggleTextStyle('italic')}
                             />
                         </span>
-
-                        <Button
-                            className="text-[14px] text-blue-500"
-                            type="text"
-                            onClick={() => createLink('https://google.com')}
+                        <Popover
+                            placement="top"
+                            content={linkContent}
+                            trigger={'click'}
+                            open={openLinkPopover}
                         >
-                            Link
-                        </Button>
+                            <Button
+                                className="text-[14px] text-blue-500"
+                                type="text"
+                                onClick={handleLinkPopoverChange}
+                            >
+                                Link
+                            </Button>
+                        </Popover>
                     </div>
                 </div>
             )}
