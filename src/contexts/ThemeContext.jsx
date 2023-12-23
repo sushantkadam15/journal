@@ -13,6 +13,7 @@ export const ThemeProvider = ({ children }) => {
     // Get the initial theme value from localStorage or use false as default
     const initialTheme = localStorage.getItem('isDarkMode') === 'true';
     const [isDarkMode, setIsDarkMode] = useState(initialTheme);
+    const [fontFamily, setFontFamily] = useState('JetBrains Mono, monospace');
 
     // Function to toggle dark mode
     const toggleDarkMode = () => {
@@ -50,12 +51,12 @@ export const ThemeProvider = ({ children }) => {
     // Customize the light and dark themes
     const lightBlockNoteTheme = {
         ...lightDefaultTheme,
-        fontFamily: 'JetBrains Mono, monospace',
+        fontFamily: fontFamily,
         borderRadius: 0
     };
     const darkBlockNoteTheme = {
         ...darkDefaultTheme,
-        fontFamily: 'JetBrains Mono, monospace',
+        fontFamily: fontFamily,
         borderRadius: 0,
         colors: {
             ...darkDefaultTheme.colors,
@@ -78,7 +79,7 @@ export const ThemeProvider = ({ children }) => {
     // Provide theme-related values and functions to children
     return (
         <ThemeContext.Provider
-            value={{ isDarkMode, blockNoteTheme, toggleDarkMode }}
+            value={{ isDarkMode, blockNoteTheme, toggleDarkMode,fontFamily, setFontFamily }}
         >
             <ConfigProvider {...antdConfig}>{children}</ConfigProvider>
         </ThemeContext.Provider>

@@ -81,6 +81,18 @@ const highlightColorsPresets = [
     }
 ];
 
+const fonts = [
+    { label: 'JetBrains Mono', value: "'JetBrains Mono', 'monospace'" },
+    { label: 'Numans', value: " 'Numans', 'sans-serif'" },
+    { label: 'Open Sans', value: " 'Open Sans', 'sans-serif'" },
+    { label: 'Oswald', value: " 'Oswald', 'sans-serif'" },
+    { label: 'Roboto', value: " 'Roboto', 'sans-serif'" },
+    { label: 'Lato', value: " 'Lato', 'sans-serif'" },
+    { label: 'Merriweather Sans', value: " 'Merriweather Sans', 'sans-serif'" },
+    { label: 'Montserrat', value: " 'Montserrat', 'sans-serif'" },
+    { label: 'Noto Sans', value: " 'Noto Sans', 'sans-serif'" }
+];
+
 const TextEditorMenu = ({
     editor,
     selectedBlocks,
@@ -88,7 +100,7 @@ const TextEditorMenu = ({
     isTextEditorMenuCollapsed,
     setIsTextEditorMenuCollapsed
 }) => {
-    const { isDarkMode } = useTheme();
+    const { isDarkMode, fontFamily, setFontFamily } = useTheme();
     const iconColor = isDarkMode ? '#F5F5F5' : '#303030';
     const [openLinkPopover, setOpenLinkPopover] = useState(false);
     const [linkUrl, setLinkUrl] = useState('');
@@ -203,7 +215,30 @@ const TextEditorMenu = ({
                         />
 
                         {/* Font  */}
-                        <Select defaultValue="lucy" bordered={false} />
+                        <Select
+                            defaultValue={'JetBrains Mono'}
+                            value={fontFamily}
+                            options={
+                                fonts.map(({ label, value }) => ({
+                                    value,
+                                    label: (
+                                        <div
+                                            className="font-JetBrains"
+                                            style={{ fontFamily: value }}
+                                        >
+                                            {label}
+                                        </div>
+                                    )
+                                }))
+
+
+                            }
+                            bordered={false}
+                            className="min-w-[9rem] text-center font-JetBrains text-sm"
+                            onChange={(value) => {
+                                setFontFamily(value);
+                            }}
+                        />
                     </div>
                     <div className="flex items-center gap-6 font-extralight">
                         <CustomColorPicker
