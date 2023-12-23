@@ -9,6 +9,7 @@ import EditorMenu from './EditorMenu';
 import EditorHeader from './EditorHeader';
 import PromptDisplayCard from './PromptDisplayCard';
 import { useTheme } from '../../contexts/ThemeContext';
+import NavDrawer from '../navigation/NavDrawer';
 
 // Main TextEditor component
 const Editor = () => {
@@ -123,6 +124,7 @@ const Editor = () => {
                 isMusicOn={isMusicOn}
                 setIsMusicOn={setIsMusicOn}
             />
+            <NavDrawer />
             <div
                 className={` mx-auto  flex  flex-col border-slate-200 md:w-10/12 md:border ${
                     isFocusModeOn
