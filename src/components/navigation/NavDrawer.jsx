@@ -149,7 +149,7 @@ const NavDrawer = () => {
             <Drawer
                 style={{
                     borderRadius: 'var(--size-0, 0px)',
-                    background: 'var(--Color-nav-bg, #EBEBEB)',
+
                     boxShadow: '4px 4px 8px 0px rgba(0, 0, 0, 0.25)',
                     fontFamily: 'JetBrains Mono'
                 }}
@@ -164,7 +164,7 @@ const NavDrawer = () => {
                 <div className="flex flex-col items-center gap-5">
                     <Avatar shape="square" size={64} icon={<UserOutlined />} />
                     <Button type="primary">New Page </Button>
-                    <h2 className="flex w-full items-center gap-2 rounded-md bg-[#FAFAFA] px-4 py-2  text-sm">
+                    <h2 className="flex w-full items-center gap-2 rounded-md bg-[#FAFAFA] px-4  py-2 text-sm  dark:bg-bg-dark-bg-secondary">
                         <TbBook2 size={20} color="#A6A6C8" /> My Journal
                     </h2>
 
@@ -177,7 +177,6 @@ const NavDrawer = () => {
                                         textAlign: 'left',
                                         fontSize: '13px',
                                         fontWeight: 'var(--font-weight-1, 400)',
-                                        color: 'var(--Color-text, #000000)',
                                         overflow: 'hidden',
                                         whiteSpace: 'nowrap',
                                         textOverflow: 'ellipsis',
@@ -190,7 +189,7 @@ const NavDrawer = () => {
                         ))}
                     </div>
 
-                    <Button className="flex w-full items-center gap-2 rounded-md border-none bg-[#FAFAFA] px-4  py-2 text-sm outline-none">
+                    <Button className="flex w-full items-center gap-2 rounded-md border-none bg-[#FAFAFA] px-4  py-2  text-sm outline-none dark:bg-bg-dark-bg-secondary">
                         <TbBook2 size={20} color="#A6A6C8" /> My Insights
                     </Button>
                 </div>
