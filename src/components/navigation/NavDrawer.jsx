@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Drawer, Space } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { TbBook2 } from 'react-icons/tb';
+import { FaRegChartBar } from "react-icons/fa";
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { useMenu } from '../../contexts/NavDrawerContext';
 import { Avatar } from 'antd';
@@ -190,7 +191,7 @@ const NavDrawer = () => {
                     </div>
 
                     <Button className="flex w-full items-center gap-2 rounded-md border-none bg-[#FAFAFA] px-4  py-2  text-sm outline-none dark:bg-bg-dark-bg-secondary">
-                        <TbBook2 size={20} color="#A6A6C8" /> My Insights
+                        <FaRegChartBar size={20} color="#A6A6C8" /> My Insights
                     </Button>
                 </div>
             </Drawer>
