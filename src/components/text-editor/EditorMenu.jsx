@@ -217,13 +217,20 @@ const EditorMenu = ({
                         {/* Font  */}
                         <Select
                             defaultValue={'JetBrains Mono'}
-                            value={fontFamily}
+                            style={{
+                                width: '160px'
+                            }}
+                            value={
+                                fonts.find((font) => font.value === fontFamily)
+                                    ?.label || 'JetBrains Mono'
+                            }
                             options={fonts.map(({ label, value }) => ({
                                 value,
                                 label: (
                                     <div
-                                        className="w-32"
-                                        style={{ fontFamily: value }}
+                                        style={{
+                                            fontFamily: value
+                                        }}
                                     >
                                         {label}
                                     </div>

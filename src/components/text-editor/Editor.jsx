@@ -124,7 +124,7 @@ const Editor = () => {
                 isMusicOn={isMusicOn}
                 setIsMusicOn={setIsMusicOn}
             />
-            <NavDrawer />
+            {!isFocusModeOn && <NavDrawer />}
             <div
                 className={` mx-auto  flex  flex-col border-slate-200 md:w-10/12 md:border ${
                     isFocusModeOn
